@@ -20,18 +20,21 @@ export default function Header({ logoUrl, items }: HaeaderProps) {
 
   return (
     <>
-      <header className='sticky top-0 z-50 w-full border-b bg-background'>
+      <header className='backdrop-blur-base sticky top-0 z-50 w-full border-b bg-background/70'>
         {/* Desktop Header */}
         <div className='container flex h-16 items-center justify-between px-4 md:px-6'>
-          <div className='flex items-center gap-6 md:gap-10'>
+          <div className='flex items-center gap-6 md:gap-4'>
             <Link href='/' className='flex items-center gap-2'>
               <Image
                 src={logoUrl || '/default-logo.png'}
-                alt='PetDo Logo'
-                width={184}
+                alt='Premiarte Logo'
+                width={47}
                 height={47}
               />
             </Link>
+            <span className='text-2xl'>PremiArte</span>
+          </div>
+          <div className='flex items-center gap-6 md:gap-10'>
             <nav className='hidden gap-6 md:flex'>
               {items.map((item) => (
                 <Link
@@ -50,13 +53,13 @@ export default function Header({ logoUrl, items }: HaeaderProps) {
                 <Search className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground' />
                 <Input
                   type='search'
-                  placeholder='Search...'
+                  placeholder='Buscar...'
                   className='w-[200px] rounded-full bg-muted pl-8 md:w-[250px]'
                 />
               </div>
             </div>
 
-            <Button variant='ghost' size='icon' className='relative' asChild>
+            {/* <Button variant='ghost' size='icon' className='relative' asChild>
               <Link href='/login'>
                 <User className='h-5 w-5' />
                 <span className='sr-only'>Sign In</span>
@@ -70,11 +73,11 @@ export default function Header({ logoUrl, items }: HaeaderProps) {
                 </Badge>
                 <span className='sr-only'>Cart</span>
               </Link>
-            </Button>
+            </Button> */}
             <Button
               variant='ghost'
               size='icon'
-              className='md:hidden'
+              className='hover:cursor-pointer md:hidden'
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className='h-5 w-5' /> : <Menu className='h-5 w-5' />}

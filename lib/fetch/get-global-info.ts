@@ -1,11 +1,11 @@
 import { StrapiGlobal } from '@/lib/types/strapi';
-import { query } from './strapi';
 import { queryServer } from '@/lib/fetch/strapi-server';
 
 const { STRAPI_HOST } = process.env;
 
 export function getGlobalInfo() {
   return queryServer<StrapiGlobal>('global').then((res) => {
+    console.log('res', res);
     const {
       id,
       documentId,
@@ -18,7 +18,10 @@ export function getGlobalInfo() {
       footer,
     } = res.data;
     const favicon = rawFavicon ? `${STRAPI_HOST}${rawFavicon.url}` : '';
-    const logo = header?.logo ? `${STRAPI_HOST}${header.logo.image.url}` : '';
+    const logo =
+      header?.logo && header?.logo.image.url.includes('https')
+        ? header.logo.image.url
+        : `${STRAPI_HOST}${header.logo.image.url}`;
     const mediaImage = defaultSeo?.shareImage ? `${STRAPI_HOST}${defaultSeo?.shareImage?.url}` : '';
 
     return {

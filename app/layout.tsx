@@ -59,7 +59,7 @@ export default async function RootLayout({
   const globalInfo = await getGlobalInfo();
 
   return (
-    <html lang='es'>
+    <html lang='es' className='dark'>
       <body className={inter.className} suppressHydrationWarning>
         <Providers>
           <div className='flex min-h-screen flex-col'>

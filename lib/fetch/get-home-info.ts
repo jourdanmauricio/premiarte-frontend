@@ -8,7 +8,9 @@ export function getHomeInfo() {
     const homeInfo = {
       ...res.data,
       image: {
-        url: `${STRAPI_HOST}${res.data.cover.url}`,
+        url: res.data.cover.url.includes('https')
+          ? res.data.cover.url
+          : `${STRAPI_HOST}${res.data.cover.url}`,
         alt: res.data.cover.alternativeText || res.data.title,
       },
     };
