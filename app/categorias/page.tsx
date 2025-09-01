@@ -12,7 +12,7 @@ const ProductsPage = async ({ searchParams }: CategoryPageProps) => {
 
   const categories = await getCategories({ page: page, pageSize: PAGE_SIZE });
 
-  console.log('categories', categories);
+  // console.log('categories', categories);
 
   return (
     <div>
