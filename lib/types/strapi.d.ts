@@ -32,8 +32,35 @@ export interface StrapiCategory {
   description?: string;
   image: StrapiImage;
   featured: boolean;
+  products: {
+    count: number;
+  };
 }
 
+export interface slider {
+  button: {
+    href: string;
+    id: number;
+    isButtonLink: boolean;
+    isExternal: boolean;
+    label: string;
+    type: string;
+  };
+  card: {
+    id: number;
+    description: RootNode[];
+    image: {
+      alternativeText: string;
+      documentId: string;
+      height: number;
+      id: number;
+      name: string;
+      url: string;
+      width: number;
+    };
+    title: string;
+  };
+}
 export interface StrapiHome {
   id: number;
   documentId: string;
@@ -42,6 +69,7 @@ export interface StrapiHome {
   cover: StrapiImage;
   categoriesTitle: string;
   productsTitle: string;
+  slider: slider[];
 }
 
 interface Link {

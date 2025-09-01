@@ -5,7 +5,6 @@ const { STRAPI_HOST } = process.env;
 
 export function getGlobalInfo() {
   return queryServer<StrapiGlobal>('global').then((res) => {
-    console.log('res', res);
     const {
       id,
       documentId,

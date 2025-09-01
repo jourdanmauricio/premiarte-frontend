@@ -10,7 +10,9 @@ export function getServices() {
       service: res.data.service.map((service) => ({
         ...service,
         image: {
-          url: `${STRAPI_HOST}${service.image.url}`,
+          url: service.image.url.includes('https')
+            ? service.image.url
+            : `${STRAPI_HOST}${service.image.url}`,
           alt: service.image.alternativeText || service.title,
         },
       })),

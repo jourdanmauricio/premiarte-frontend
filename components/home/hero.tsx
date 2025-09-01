@@ -18,14 +18,17 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
+import { slider } from '@/lib/types/strapi';
 
 type HeroProps = {
   title: string;
   description: any[];
   image: { url: string; alt: string };
+  slider: slider[];
+  logo: string;
 };
 
-const Hero = ({ title, description, image }: HeroProps) => {
+const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -40,7 +43,7 @@ const Hero = ({ title, description, image }: HeroProps) => {
   }, [api]);
 
   return (
-    <section className='relative'>
+    <section className='container relative border-b'>
       <div className='relative mx-auto w-full'>
         <Carousel
           setApi={setApi}
@@ -54,15 +57,15 @@ const Hero = ({ title, description, image }: HeroProps) => {
           ]}
         >
           <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index}>
+            {slider.map((slide, index) => (
+              <CarouselItem key={slide.card.id}>
                 <Card className='relative border-0'>
-                  <CardContent className='relative flex aspect-auto h-[460px] items-center justify-center p-6'>
+                  <CardContent className='relative flex aspect-auto h-[460px] items-center p-6'>
                     {/* Imagen con capa de superposición */}
                     <div className='absolute inset-0'>
                       <Image
-                        src={image.url}
-                        alt={image.alt}
+                        src={slide.card.image.url}
+                        alt={slide.card.image.alternativeText || 'Slide Image'}
                         fill
                         className='object-cover'
                         priority
@@ -72,9 +75,19 @@ const Hero = ({ title, description, image }: HeroProps) => {
                     </div>
 
                     {/* Texto encima */}
-                    <div className='relative z-10 text-center text-white'>
-                      <span className='text-4xl font-semibold'>{index + 1}</span>
-                      <p className='mt-2 text-lg'>Texto descriptivo que resaltará</p>
+                    <div className='relative z-10 flex flex-col gap-8 p-20 text-white md:w-1/2'>
+                      <span className='text-4xl font-semibold'>{slide.card.title}</span>
+                      <BlocksRenderer content={slide.card.description} />
+                      <Button
+                        className='w-fit bg-transparent font-medium hover:bg-transparent'
+                        variant='outline'
+                        asChild
+                      >
+                        <Link href={slide.button.href || '/productos'}>
+                          {slide.button.label || 'Shop Now'}
+                        </Link>
+                      </Button>
+                      {/* <p className='mt-2 text-lg'>{slide.card.description}</p> */}
                     </div>
                   </CardContent>
                 </Card>
@@ -83,6 +96,7 @@ const Hero = ({ title, description, image }: HeroProps) => {
           </CarouselContent>
           <CarouselPrevious
             variant='ghost'
+            // size='lg'
             className='absolute left-8 top-1/2 z-20 -translate-y-1/2 hover:bg-black/20'
           />
           <CarouselNext
@@ -97,7 +111,7 @@ const Hero = ({ title, description, image }: HeroProps) => {
                 key={index}
                 onClick={() => api?.scrollTo(index)}
                 className={cn(
-                  'h-4 w-4 rounded-full hover:cursor-pointer',
+                  'h-3 w-3 rounded-full hover:cursor-pointer',
                   index === current - 1 ? 'bg-white/60' : 'bg-transparent hover:bg-white/20'
                 )}
                 // className={'embla__dot'.concat(index === current ? 'embla__dot--selected' : '')}
@@ -109,22 +123,23 @@ const Hero = ({ title, description, image }: HeroProps) => {
       <div className='container px-4 py-12 md:px-6 md:py-24 lg:py-32'>
         <div className='grid items-center gap-6 lg:grid-cols-2 lg:gap-12'>
           <div className='space-y-4'>
-            <h1 className='text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl'>
+            <Image className='mx-auto' src={logo} alt='Premiarte' width={80} height={80} />
+            <h1 className='text-center text-3xl font-semibold tracking-tighter text-orange-500 sm:text-4xl md:text-5xl lg:text-6xl'>
               {title || 'Welcome to Our Pet Store'}
             </h1>
             <div className='max-w-[600px] text-muted-foreground md:text-xl'>
               <BlocksRenderer content={description} />
             </div>
-            <div className='flex flex-col gap-4 sm:flex-row'>
+            <div className='flex flex-col justify-center gap-4 sm:flex-row'>
               <Button size='lg' className='font-medium' asChild>
-                <Link href='/shop'> Shop Now </Link>
+                <Link href='/productos'> Productos </Link>
               </Button>
               <Button size='lg' variant='outline' className='font-medium'>
-                View Deals
+                Descuentos
               </Button>
             </div>
           </div>
-          <div className='relative h-[300px] overflow-hidden rounded-xl sm:h-[400px] lg:h-[500px]'>
+          <div className='relative h-[300px] overflow-hidden rounded-sm sm:h-[400px] lg:h-[500px]'>
             <Image src={image.url} alt={image.alt} fill className='object-cover' priority />
           </div>
         </div>

@@ -4,7 +4,7 @@ import { queryServer } from '@/lib/fetch/strapi-server';
 const { STRAPI_HOST } = process.env;
 
 export function getHomeInfo() {
-  return queryServer<StrapiHome>('home?populate=cover').then((res) => {
+  return queryServer<StrapiHome>('home').then((res) => {
     const homeInfo = {
       ...res.data,
       image: {
@@ -14,6 +14,8 @@ export function getHomeInfo() {
         alt: res.data.cover.alternativeText || res.data.title,
       },
     };
+
+    console.log('homeInfo', homeInfo);
     return homeInfo;
   });
 }

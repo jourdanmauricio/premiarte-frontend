@@ -22,12 +22,12 @@ const Testimonials = async () => {
   };
 
   return (
-    <section className='py-12 md:py-16'>
+    <section className='py-20'>
       <div className='container px-4 md:px-6'>
-        <h2 className='mb-8 text-center text-2xl font-bold tracking-tight md:text-3xl'>
+        <h2 className='mb-8 text-center text-2xl font-semibold tracking-tight md:text-3xl'>
           {testimonials.title || 'What Our Customers Say'}
         </h2>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-6 pt-8 md:grid-cols-3'>
           {testimonials.rating.map((testimonial) => (
             <Card key={testimonial.id} className='bg-background'>
               <CardContent className='p-6'>

@@ -22,8 +22,6 @@ export function getProducts({
   if (pageSize) url += `&pagination[pageSize]=${pageSize}`;
   if (categoryId) url += `&filters[categories][slug][$contains]=${categoryId}`;
 
-  console.log('URL', url);
-
   return queryServer<StrapiProducts[]>(url).then((res) => {
     const response = featured ? res.data.filter((prod) => prod.featured) : res.data;
 
@@ -39,6 +37,7 @@ export function getProducts({
             alt: image.alternativeText || prod.name,
           })),
     }));
+
     return { products, pagination: res.meta?.pagination };
   });
 }

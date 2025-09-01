@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Pagination,
   PaginationContent,
@@ -55,7 +54,7 @@ const CustomPagination = ({ page, pageCount, onPageChange }: PaginationProps) =>
   const visiblePages = getVisiblePages();
 
   return (
-    <Pagination>
+    <Pagination className='mt-8'>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

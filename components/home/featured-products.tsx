@@ -15,16 +15,17 @@ const FeaturedProducts = async ({
   productsTitle = 'Productos destacados',
 }: FeaturedProductsProps) => {
   const { products } = await getProducts({ featured: true, page: ' 1', pageSize: PAGE_SIZE });
+
   return (
-    <section className='py-12 md:py-16'>
-      <div className='container px-4 md:px-6'>
-        <h2 className='mb-8 text-center text-2xl font-bold tracking-tight md:text-3xl'>
+    <section className='container border-b py-20'>
+      <div className='px-4 md:px-6'>
+        <h2 className='text-center text-2xl font-semibold tracking-tight text-orange-500 md:text-3xl'>
           {productsTitle}
         </h2>
-        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'>
+        <div className='flex flex-wrap justify-center gap-6 pt-24'>
           {products.map((product) => (
-            <div key={product.id} className='group relative'>
-              <div className='aspect-square overflow-hidden rounded-lg bg-background'>
+            <div key={product.id} className='group relative w-64'>
+              <div className='aspect-square overflow-hidden rounded-sm bg-background'>
                 <Image
                   src={product.images[0].url}
                   alt={product.images[0].alt}
@@ -72,9 +73,11 @@ const FeaturedProducts = async ({
             </div>
           ))}
         </div>
-        <div className='mt-10 text-center'>
+        <div className='mt-20 text-center'>
           <Button variant='outline' size='lg' asChild>
-            <Link href='/productos'>Ver todos los porductos</Link>
+            <Link href='/productos'>
+              <span className='text-xl text-orange-500'>Ver todos los productos</span>
+            </Link>
           </Button>
         </div>
       </div>

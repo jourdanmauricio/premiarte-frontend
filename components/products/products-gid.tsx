@@ -3,19 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingCart, Heart, Search, ChevronDown, Filter, X } from 'lucide-react';
+import { ShoppingCart, Heart, Search, Filter } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
+
 import {
   Sheet,
   SheetContent,
@@ -79,8 +73,6 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
 
   const router = useRouter();
 
-  console.log('categories', categories);
-
   const toggleFilter = (value: Category) => {
     console.log('value', value);
     router.push(`/categorias/${value.slug}`);
@@ -100,33 +92,20 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
     router.push(`/categorias`);
   };
 
-  console.log('products.products', products.products);
-
   const FilterSidebar = ({ isMobile = false }) => (
     <div className={`space-y-6 ${isMobile ? '' : 'sticky top-20'}`}>
-      <div className='flex items-center justify-between'>
-        <Button
-          variant='ghost'
-          size='sm'
-          onClick={clearFilters}
-          className='h-8 text-xs text-primary hover:text-primary/80'
-        >
-          Clear all
-        </Button>
-      </div>
-
       <div className='space-y-4'>
         <h3 className='text-lg font-medium'>Categorías</h3>
         <div className='space-y-2'>
           {categories.map((category) => (
             <div key={category.id} className='flex items-center space-x-2'>
               <Checkbox
-                id={`category-${category}`}
+                id={`category-${category.id}`}
                 checked={slug === category.slug}
                 onCheckedChange={() => toggleFilter(category)}
               />
               <Label
-                htmlFor={`category-${category}`}
+                htmlFor={`category-${category.id}`}
                 className='cursor-pointer text-sm font-normal'
               >
                 {category.name}
@@ -141,7 +120,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>
       <div className='mb-8'>
-        <h1 className='mb-2 text-3xl font-bold'>Shop All Products</h1>
+        <h1 className='mb-2 text-3xl font-bold'>Productos</h1>
       </div>
 
       <div className='flex flex-col gap-8 md:flex-row'>
@@ -186,10 +165,11 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
               <Button onClick={clearFilters}>Clear all filters</Button>
             </div>
           ) : (
-            <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+            // <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+            <div className='flex flex-wrap justify-center gap-12'>
               {products.products.map((product) => (
-                <div key={product.id} className='group relative'>
-                  <div className='aspect-square overflow-hidden rounded-lg bg-background'>
+                <div key={product.id} className='group relative w-64'>
+                  <div className='aspect-square overflow-hidden rounded-sm bg-background'>
                     <Image
                       src={product.images[0].url || '/placeholder.svg'}
                       alt={product.images[0].alt}
