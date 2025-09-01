@@ -21,11 +21,10 @@ export function getProducts({
   if (page) url += `?pagination[page]=${page}`;
   if (pageSize) url += `&pagination[pageSize]=${pageSize}`;
   if (categoryId) url += `&filters[categories][slug][$contains]=${categoryId}`;
+  if (featured) url += `&filters[featured][$eq]=true`;
 
   return queryServer<StrapiProducts[]>(url).then((res) => {
-    const response = featured ? res.data.filter((prod) => prod.featured) : res.data;
-
-    const products = response.map((prod) => ({
+    const products = res.data.map((prod) => ({
       ...prod,
       images: prod.images[0].url.includes('https')
         ? prod.images.map((image) => ({

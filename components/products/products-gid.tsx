@@ -17,7 +17,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { CustomPagination } from '@/components/ui/custom/custom-pagination';
 
 type Category = {
@@ -68,13 +68,20 @@ type ProductsGridProps = {
 };
 
 const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(slug || null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
 
   const router = useRouter();
+  const pathname = usePathname();
+
+  const isCategoryPage = pathname.startsWith('/categorias');
 
   const toggleFilter = (value: Category) => {
-    console.log('value', value);
+    if (categoryFilter === value.slug) {
+      setCategoryFilter(null);
+      return router.push(`/productos`);
+    }
     router.push(`/categorias/${value.slug}`);
   };
 
@@ -85,7 +92,8 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
     params.set('page', newPage.toString());
     // if (sort) params.set('sort', sort);
 
-    router.push(`/categorias/${slug}?${params.toString()}`);
+    const path = isCategoryPage ? `/categorias/${slug}` : 'productos';
+    router.push(`${path}?${params.toString()}`);
   };
 
   const clearFilters = () => {
@@ -95,7 +103,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
   const FilterSidebar = ({ isMobile = false }) => (
     <div className={`space-y-6 ${isMobile ? '' : 'sticky top-20'}`}>
       <div className='space-y-4'>
-        <h3 className='text-lg font-medium'>Categorías</h3>
+        <h3 className='text-lg font-medium text-primary'>Categorías</h3>
         <div className='space-y-2'>
           {categories.map((category) => (
             <div key={category.id} className='flex items-center space-x-2'>
@@ -207,26 +215,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
                       {product.categories[0].name}
                     </Badge>
                     <h3 className='font-medium'>{product.name}</h3>
-                    <div className='flex justify-center gap-2'>
-                      {/* <span className='text-muted-foreground line-through'>
-                        ${product.price.toFixed(2)}
-                      </span> */}
-                      {/* <span className='font-medium text-primary'>
-                        ${product.offerPrice.toFixed(2)}
-                      </span> */}
-                    </div>
-                    {/* <div className='flex justify-center'>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <svg
-                          key={i}
-                          className={`h-4 w-4 ${i < product.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`}
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 24 24'
-                        >
-                          <path d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z' />
-                        </svg>
-                      ))}
-                    </div> */}
+                    <div className='flex justify-center gap-2'></div>
                   </div>
                 </div>
               ))}

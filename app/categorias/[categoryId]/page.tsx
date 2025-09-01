@@ -9,13 +9,11 @@ type CategoryPageProps = {
   searchParams: { [key: string]: string | undefined };
 };
 const CategoryPage = async ({ params, searchParams }: CategoryPageProps) => {
-  const { categoryId } = params;
-  const { page } = searchParams;
+  const { page } = await searchParams;
+  const { categoryId } = await params;
 
   const categories = await getCategories({ page: '1', pageSize: 100 });
   const products = await getProducts({ page, categoryId, pageSize: PAGE_SIZE });
-
-  console.log('products', products);
 
   return (
     <div>

@@ -4,15 +4,14 @@ import { getCategories } from '@/lib/fetch/get-categories';
 const PAGE_SIZE = 6;
 
 type CategoryPageProps = {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 };
 
 const ProductsPage = async ({ searchParams }: CategoryPageProps) => {
-  const { page } = searchParams;
+  const params = await searchParams;
+  const { page } = params;
 
   const categories = await getCategories({ page: page, pageSize: PAGE_SIZE });
-
-  // console.log('categories', categories);
 
   return (
     <div>

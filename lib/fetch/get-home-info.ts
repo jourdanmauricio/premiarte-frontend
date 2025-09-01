@@ -15,7 +15,6 @@ export function getHomeInfo() {
       },
     };
 
-    console.log('homeInfo', homeInfo);
     return homeInfo;
   });
 }

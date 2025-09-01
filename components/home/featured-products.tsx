@@ -14,7 +14,7 @@ const PAGE_SIZE = 6;
 const FeaturedProducts = async ({
   productsTitle = 'Productos destacados',
 }: FeaturedProductsProps) => {
-  const { products } = await getProducts({ featured: true, page: ' 1', pageSize: PAGE_SIZE });
+  const { products } = await getProducts({ featured: true, page: '1', pageSize: PAGE_SIZE });
 
   return (
     <section className='container border-b py-20'>
