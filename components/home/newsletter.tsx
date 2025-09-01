@@ -57,10 +57,10 @@ const Newsletter = () => {
   };
 
   return (
-    <section className='bg-muted py-12 md:py-16'>
+    <section className='bg-muted bg-orange-400 py-20 text-background/70'>
       <div className='container px-4 md:px-6'>
         <div className='flex flex-col items-center space-y-4 text-center md:space-y-6'>
-          <h2 className='text-2xl font-bold tracking-tight md:text-3xl'>
+          <h2 className='text-2xl font-semibold tracking-tight md:text-3xl'>
             Suscríbete a nuestro boletín
           </h2>
           <p className='max-w-[600px] md:text-lg'>
@@ -75,7 +75,7 @@ const Newsletter = () => {
                   name='name'
                   type='text'
                   placeholder='Ingresa tu nombre'
-                  className='w-full bg-primary-foreground text-foreground'
+                  className='w-full text-foreground'
                   maxLength={50}
                 />
                 <InputField
@@ -83,7 +83,7 @@ const Newsletter = () => {
                   type='email'
                   name='email'
                   placeholder='Ingresa tu email'
-                  className='bg-primary-foreground text-foreground'
+                  className='text-foreground'
                   minLength={50}
                 />
                 <Button
@@ -98,7 +98,7 @@ const Newsletter = () => {
             </Form>
           </div>
 
-          <p className='text-xs text-muted-foreground'>
+          <p className='text-xs text-background/70'>
             Al suscribirse, acepta nuestros Términos de servicio y Política de privacidad.
           </p>
         </div>

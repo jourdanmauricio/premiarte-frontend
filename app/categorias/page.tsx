@@ -1,17 +1,22 @@
-import { ProductsGid } from '@/components/products/products-gid';
+import { CategoriesGid } from '@/components/categories/categories-gid';
 import { getCategories } from '@/lib/fetch/get-categories';
-import { getProducts } from '@/lib/fetch/get-products';
 
-const PAGE_SIZE = 12;
-const ProductsPage = async () => {
-  const categories = await getCategories({});
-  const products = await getProducts({ page: '1', pageSize: PAGE_SIZE });
+const PAGE_SIZE = 6;
 
-  console.log('products', products);
+type CategoryPageProps = {
+  searchParams: { [key: string]: string | undefined };
+};
+
+const ProductsPage = async ({ searchParams }: CategoryPageProps) => {
+  const { page } = searchParams;
+
+  const categories = await getCategories({ page: page, pageSize: PAGE_SIZE });
+
+  console.log('categories', categories);
 
   return (
     <div>
-      <ProductsGid categories={categories} products={products} />
+      <CategoriesGid categories={categories} />
     </div>
   );
 };

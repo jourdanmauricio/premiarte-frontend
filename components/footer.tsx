@@ -10,8 +10,8 @@ type FooterProps = {
 
 export default function Footer({ logoUrl, footer }: FooterProps) {
   return (
-    <footer className='border-t bg-[#323A45] text-background/70'>
-      <div className='container px-4 py-8 md:px-6 md:py-12'>
+    <footer className='border-t text-muted-foreground'>
+      <div className='container px-4 py-8 md:px-6 md:py-20'>
         <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4'>
           <div className='space-y-4'>
             <Link href='/' className='flex items-center gap-2'>
@@ -46,7 +46,7 @@ export default function Footer({ logoUrl, footer }: FooterProps) {
             </div>
           </div>
           <div className='space-y-4'>
-            <h3 className='text-base font-medium text-background'>Links</h3>
+            <h3 className='text-base font-medium text-muted-foreground'>Links</h3>
             <nav className='flex flex-col space-y-2'>
               {footer.navItems.map((link) => (
                 <Link
@@ -63,15 +63,15 @@ export default function Footer({ logoUrl, footer }: FooterProps) {
             </nav>
           </div>
           <div className='space-y-4'>
-            <h3 className='text-base font-medium text-background'>Acerca de premiarte</h3>
-            <div className='max-w-[600px] text-background/70 md:text-sm'>
+            <h3 className='text-base font-medium text-muted-foreground'>Acerca de premiarte</h3>
+            <div className='max-w-[600px] text-muted-foreground md:text-sm'>
               <BlocksRenderer content={footer.description} />
             </div>
           </div>
 
           <div className='space-y-4'>
-            <h3 className='text-base font-medium text-background'>Contacto</h3>
-            <div className='flex flex-col space-y-2 text-sm text-background/70'>
+            <h3 className='text-base font-medium text-muted-foreground'>Contacto</h3>
+            <div className='flex flex-col space-y-2 text-sm text-muted-foreground'>
               <p>Calle 70 N° 999 e/ 14 y 15</p>
               <p>La Plata, Buenos Aires - C.P. 1900</p>
               <p>Teléfono: (221) 619-6520</p>
