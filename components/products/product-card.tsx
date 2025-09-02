@@ -1,6 +1,7 @@
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/lib/types/strapi';
-import { Badge, Heart, Search, ShoppingCart } from 'lucide-react';
+import { Heart, Search, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 
 type ProductCardProps = {
@@ -44,8 +45,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </div>
       <div className='mt-4 space-y-1 text-center'>
-        {/* variant='outline' */}
-        <Badge className='mb-2'>{product.categories[0].name}</Badge>
+        <Badge variant='outline' className='mb-2'>
+          {product.categories[0].name}
+        </Badge>
         <h3 className='font-medium'>{product.name}</h3>
         <div className='flex justify-center gap-2'></div>
       </div>
