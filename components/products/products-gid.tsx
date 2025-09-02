@@ -1,15 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ShoppingCart, Heart, Search, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-
 import {
   Sheet,
   SheetContent,
@@ -17,11 +11,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { CustomPagination } from '@/components/ui/custom/custom-pagination';
 import { Category, Products } from '@/lib/types/strapi';
 import { FilterSidebar } from '@/components/products/filter-sidebar';
 import { ProductCard } from '@/components/products/product-card';
+import Link from 'next/link';
 
 type ProductsGridProps = {
   categories: Category[];
@@ -31,24 +26,10 @@ type ProductsGridProps = {
 
 const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [page, setPage] = useState(1);
 
   const router = useRouter();
-  const pathname = usePathname();
 
-  const isCategoryPage = pathname.startsWith('/categorias');
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-
-    const params = new URLSearchParams();
-    params.set('page', newPage.toString());
-    // if (sort) params.set('sort', sort);
-
-    const path = isCategoryPage ? `/categorias/${slug}` : 'productos';
-    console.log('GET ', `${path}?${params.toString()}`);
-    router.push(`${path}?${params.toString()}`);
-  };
+  console.log('slug', slug);
 
   const clearFilters = () => {
     router.push(`/categoria/productos`);
@@ -99,7 +80,10 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
               <p className='mb-4 text-muted-foreground'>
                 Try adjusting your filters to find what you're looking for.
               </p>
-              <Button onClick={clearFilters}>Clear all filters</Button>
+
+              <Button asChild>
+                <Link href='/categoria/productos'>Ver todos los productos</Link>
+              </Button>
             </div>
           ) : (
             <div className='flex flex-wrap justify-center gap-12'>
@@ -111,11 +95,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
             </div>
           )}
 
-          <CustomPagination
-            page={page}
-            pageCount={products.pagination?.pageCount || 1}
-            onPageChange={handlePageChange}
-          />
+          <CustomPagination pageCount={products.pagination?.pageCount || 1} />
         </div>
       </div>
     </div>

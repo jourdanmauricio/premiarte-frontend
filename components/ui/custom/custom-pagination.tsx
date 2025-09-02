@@ -1,3 +1,4 @@
+'use client';
 import {
   Pagination,
   PaginationContent,
@@ -7,34 +8,40 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { useSearchParams } from 'next/navigation';
 
 type PaginationProps = {
-  page: number;
   pageCount: number;
-  onPageChange: (page: number) => void;
 };
 
-const CustomPagination = ({ page, pageCount, onPageChange }: PaginationProps) => {
-  const isFirstPage = page === 1;
-  const isLastPage = page === pageCount;
+const CustomPagination = ({ pageCount }: PaginationProps) => {
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get('page')) || 1;
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= pageCount) {
-      onPageChange(newPage);
-    }
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === pageCount;
+
+  const createPageUrl = (page: string | number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', page.toString());
+    return `?${params.toString()}`;
   };
 
   // Generar números de página a mostrar
   const getVisiblePages = () => {
-    const delta = 2; // Número de páginas a mostrar antes y después de la actual
+    const delta = 1; // Número de páginas a mostrar antes y después de la actual
     const range = [];
     const rangeWithDots = [];
 
-    for (let i = Math.max(2, page - delta); i <= Math.min(pageCount - 1, page + delta); i++) {
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(pageCount - 1, currentPage + delta);
+      i++
+    ) {
       range.push(i);
     }
 
-    if (page - delta > 2) {
+    if (currentPage - delta > 2) {
       rangeWithDots.push(1, '...');
     } else {
       rangeWithDots.push(1);
@@ -42,7 +49,7 @@ const CustomPagination = ({ page, pageCount, onPageChange }: PaginationProps) =>
 
     rangeWithDots.push(...range);
 
-    if (page + delta < pageCount - 1) {
+    if (currentPage + delta < pageCount - 1) {
       rangeWithDots.push('...', pageCount);
     } else if (pageCount > 1) {
       rangeWithDots.push(pageCount);
@@ -53,16 +60,14 @@ const CustomPagination = ({ page, pageCount, onPageChange }: PaginationProps) =>
 
   const visiblePages = getVisiblePages();
 
+  console.log('PAGEEEE', currentPage);
+
   return (
     <Pagination className='mt-8'>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href='#'
-            onClick={(e) => {
-              e.preventDefault();
-              handlePageChange(page - 1);
-            }}
+            href={createPageUrl(currentPage - 1)}
             className={isFirstPage ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
           />
         </PaginationItem>
@@ -73,12 +78,8 @@ const CustomPagination = ({ page, pageCount, onPageChange }: PaginationProps) =>
               <PaginationEllipsis />
             ) : (
               <PaginationLink
-                href='#'
-                onClick={(e) => {
-                  e.preventDefault();
-                  handlePageChange(pageNum as number);
-                }}
-                isActive={page === pageNum}
+                href={createPageUrl(pageNum as number)}
+                isActive={currentPage === pageNum}
                 className='cursor-pointer'
               >
                 {pageNum}
@@ -89,11 +90,7 @@ const CustomPagination = ({ page, pageCount, onPageChange }: PaginationProps) =>
 
         <PaginationItem>
           <PaginationNext
-            href='#'
-            onClick={(e) => {
-              e.preventDefault();
-              handlePageChange(page + 1);
-            }}
+            href={createPageUrl(currentPage + 1)}
             className={isLastPage ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
           />
         </PaginationItem>

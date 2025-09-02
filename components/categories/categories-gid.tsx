@@ -86,11 +86,7 @@ const CategoriesGid = ({ categories }: CategoriesGridProps) => {
       </div>
 
       {categories.pagination!.pageCount > 1 && (
-        <CustomPagination
-          page={page}
-          pageCount={categories.pagination?.pageCount || 1}
-          onPageChange={handlePageChange}
-        />
+        <CustomPagination pageCount={categories.pagination?.pageCount || 1} />
       )}
     </div>
   );
