@@ -30,24 +30,13 @@ type ProductsGridProps = {
 };
 
 const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
-  const [categoryFilter, setCategoryFilter] = useState<string | null>(slug || null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
-
-  // capturar url /products o /categorias
 
   const router = useRouter();
   const pathname = usePathname();
 
   const isCategoryPage = pathname.startsWith('/categorias');
-
-  const toggleFilter = (value: Category) => {
-    if (categoryFilter === value.slug) {
-      setCategoryFilter(null);
-      return router.push(`/productos`);
-    }
-    router.push(`/categorias/${value.slug}`);
-  };
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -62,7 +51,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
   };
 
   const clearFilters = () => {
-    router.push(`/categorias`);
+    router.push(`/categoria/productos`);
   };
 
   return (
@@ -74,13 +63,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
       <div className='flex flex-col gap-8 md:flex-row'>
         {/* Filters - Desktop */}
         <div className='hidden w-64 shrink-0 md:block'>
-          <FilterSidebar
-            categories={categories}
-            // slug={categoryFilter || undefined}
-            // toggleFilter={toggleFilter}
-            currentCategory={categoryFilter}
-            isMobile={false}
-          />
+          <FilterSidebar categories={categories} isMobile={false} />
         </div>
 
         {/* Filters - Mobile */}
@@ -90,13 +73,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
               <SheetTitle>Filters</SheetTitle>
               <SheetDescription>Narrow down your product search</SheetDescription>
             </SheetHeader>
-            <FilterSidebar
-              isMobile={true}
-              currentCategory={categoryFilter}
-              categories={categories}
-              // slug={categoryFilter || undefined}
-              // toggleFilter={toggleFilter}
-            />
+            <FilterSidebar isMobile={true} categories={categories} />
           </SheetContent>
         </Sheet>
 

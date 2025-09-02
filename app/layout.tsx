@@ -58,6 +58,8 @@ export default async function RootLayout({
 }>) {
   const globalInfo = await getGlobalInfo();
 
+  console.log('globalInfo', globalInfo.header.navItems);
+
   return (
     <html lang='es' className='dark'>
       <body className={inter.className} suppressHydrationWarning>

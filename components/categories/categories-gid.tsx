@@ -42,11 +42,11 @@ const CategoriesGid = ({ categories }: CategoriesGridProps) => {
 
     const params = new URLSearchParams();
     params.set('page', newPage.toString());
-    router.push(`/categorias?${params.toString()}`);
+    router.push(`/categoria?${params.toString()}`);
   };
 
   const handleViewProducts = (category: Category) => {
-    router.push(`/categorias/${category.slug}`);
+    router.push(`/categoria/${category.slug}`);
   };
 
   return (
