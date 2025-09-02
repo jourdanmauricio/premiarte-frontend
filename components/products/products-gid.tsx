@@ -34,6 +34,8 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
 
+  // capturar url /products o /categorias
+
   const router = useRouter();
   const pathname = usePathname();
 
@@ -55,6 +57,7 @@ const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
     // if (sort) params.set('sort', sort);
 
     const path = isCategoryPage ? `/categorias/${slug}` : 'productos';
+    console.log('GET ', `${path}?${params.toString()}`);
     router.push(`${path}?${params.toString()}`);
   };
 
