@@ -60,8 +60,6 @@ const CustomPagination = ({ pageCount }: PaginationProps) => {
 
   const visiblePages = getVisiblePages();
 
-  console.log('PAGEEEE', currentPage);
-
   return (
     <Pagination className='mt-8'>
       <PaginationContent>

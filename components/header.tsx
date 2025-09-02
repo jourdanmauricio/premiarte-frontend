@@ -3,20 +3,17 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ShoppingCart, Search, User, Menu, X } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { NavItem } from '@/lib/types/strapi';
 import { navItems } from '@/lib/constants';
 
 type HaeaderProps = {
   logoUrl: string;
-  items: NavItem[];
 };
 
-export default function Header({ logoUrl, items }: HaeaderProps) {
+export default function Header({ logoUrl }: HaeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -98,7 +95,7 @@ export default function Header({ logoUrl, items }: HaeaderProps) {
               />
             </div>
             <nav className='flex flex-col space-y-4'>
-              {items.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}

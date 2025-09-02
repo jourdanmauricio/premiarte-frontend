@@ -37,8 +37,6 @@ export function getProducts({
           })),
     }));
 
-    console.log('Products in FeaturedProducts:', products);
-
     return { products, pagination: res.meta?.pagination };
   });
 }

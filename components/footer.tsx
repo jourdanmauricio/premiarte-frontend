@@ -1,3 +1,4 @@
+import { navItems } from '@/lib/constants';
 import { FooterDto } from '@/lib/types/strapi';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
@@ -48,15 +49,8 @@ export default function Footer({ logoUrl, footer }: FooterProps) {
           <div className='space-y-4'>
             <h3 className='text-base font-medium text-muted-foreground'>Links</h3>
             <nav className='flex flex-col space-y-2'>
-              {footer.navItems.map((link) => (
-                <Link
-                  key={link.id}
-                  href={link.href}
-                  className={`text-sm hover:text-primary ${
-                    link.isButtonLink ? 'btn btn-primary' : ''
-                  }`}
-                  target={link.isExternal ? '_blank' : '_self'}
-                >
+              {navItems.map((link) => (
+                <Link key={link.id} href={link.href} className={`text-sm hover:text-primary`}>
                   {link.label}
                 </Link>
               ))}

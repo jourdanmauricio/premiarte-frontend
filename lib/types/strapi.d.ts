@@ -120,7 +120,6 @@ interface BannerDto {
 interface HeaderDto {
   id: number;
   logo: Logo;
-  navItems: NavItem[];
 }
 
 interface FooterDto {
@@ -128,7 +127,6 @@ interface FooterDto {
   textReserved: string;
   description: RootNode[];
   logo: Logo;
-  navItems: NavItem[];
   socialLinks: SocialLink[];
   design: Link[];
 }

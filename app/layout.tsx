@@ -58,15 +58,13 @@ export default async function RootLayout({
 }>) {
   const globalInfo = await getGlobalInfo();
 
-  console.log('globalInfo', globalInfo.header.navItems);
-
   return (
     <html lang='es' className='dark'>
       <body className={inter.className} suppressHydrationWarning>
         <Providers>
           <div className='flex min-h-screen flex-col'>
             {globalInfo.banner.isVisible && <Banner message={globalInfo.banner.description} />}
-            <Header logoUrl={globalInfo.logo} items={globalInfo.header.navItems} />
+            <Header logoUrl={globalInfo.logo} />
             <main className='flex-1'>{children}</main>
             <Footer logoUrl={globalInfo.logo} footer={globalInfo.footer} />
           </div>

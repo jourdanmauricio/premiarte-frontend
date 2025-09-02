@@ -11,7 +11,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { useRouter } from 'next/navigation';
 import { CustomPagination } from '@/components/ui/custom/custom-pagination';
 import { Category, Products } from '@/lib/types/strapi';
 import { FilterSidebar } from '@/components/products/filter-sidebar';
@@ -21,19 +20,10 @@ import Link from 'next/link';
 type ProductsGridProps = {
   categories: Category[];
   products: Products;
-  slug?: string;
 };
 
-const ProductsGid = ({ categories, products, slug }: ProductsGridProps) => {
+const ProductsGid = ({ categories, products }: ProductsGridProps) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-
-  const router = useRouter();
-
-  console.log('slug', slug);
-
-  const clearFilters = () => {
-    router.push(`/categoria/productos`);
-  };
 
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>

@@ -23,7 +23,7 @@ const CategoryPage = async ({ params, searchParams }: CategoryPageProps) => {
 
   return (
     <div>
-      <ProductsGid categories={categories.categories} products={products} slug={categoryId} />
+      <ProductsGid categories={categories.categories} products={products} />
     </div>
   );
 };
