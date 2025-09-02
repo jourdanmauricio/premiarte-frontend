@@ -195,3 +195,44 @@ interface StrapiReviews {
   title: string;
   rating: TestimonialDto[];
 }
+
+export type Category = {
+  id: number;
+  name: string;
+  slug: string;
+  description?: string;
+  image: string;
+  featured: boolean;
+};
+
+export type Product = {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  isActive: boolean;
+  // description: RootNode[];
+  description: any;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  featured: boolean;
+  sku: string;
+  images: {
+    url: string;
+    alt: string;
+  }[];
+  categories: Category[];
+};
+
+export type Products = {
+  pagination:
+    | {
+        page: number;
+        pageSize: number;
+        pageCount: number;
+        total: number;
+      }
+    | undefined;
+  products: Product[];
+};
