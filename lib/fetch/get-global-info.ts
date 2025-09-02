@@ -16,7 +16,7 @@ export function getGlobalInfo() {
       header,
       footer,
     } = res.data;
-    const favicon = rawFavicon ? `${STRAPI_HOST}${rawFavicon.url}` : '';
+    const favicon = rawFavicon ? rawFavicon.url : '';
     const logo =
       header?.logo && header?.logo.image.url.includes('https')
         ? header.logo.image.url

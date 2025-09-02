@@ -14,6 +14,7 @@ export function queryServer<T>(
       Authorization: `Bearer ${STRAPI_TOKEN}`,
       'Content-Type': 'application/json',
     },
+    next: { tags: ['premiarte-tag'] },
   };
 
   if (body && method !== 'GET') {
