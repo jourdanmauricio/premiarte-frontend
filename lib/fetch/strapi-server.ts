@@ -14,7 +14,10 @@ export function queryServer<T>(
       Authorization: `Bearer ${STRAPI_TOKEN}`,
       'Content-Type': 'application/json',
     },
-    next: { tags: ['premiarte-tag'] },
+    next: {
+      tags: ['premiarte-tag'],
+      revalidate: 3600,
+    },
   };
 
   if (body && method !== 'GET') {
