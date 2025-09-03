@@ -20,13 +20,10 @@ export async function POST(req: NextRequest) {
     }
 
     console.log('🏷️ Revalidando tag: premiarte-tag');
-
     // revalidatePath('/');
-
     // Revalidar el tag específico
     revalidateTag('premiarte-tag');
 
-    // También puedes revalidar paths específicos si necesitas
     // await revalidatePath('/');
     // await revalidatePath('/productos');
 
