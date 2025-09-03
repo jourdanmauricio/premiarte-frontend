@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log('🔧 Regenerando sitio...');
     console.log('🏷️ Revalidando tag: premiarte-tag');
 
     // revalidatePath('/');
