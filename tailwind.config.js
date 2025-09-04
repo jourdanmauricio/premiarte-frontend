@@ -17,6 +17,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'Inter', 'sans-serif'], // Por defecto
+        montserrat: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'], // Para títulos
+      },
       backdropBlur: {
         xs: '2px',
         base: '8px',

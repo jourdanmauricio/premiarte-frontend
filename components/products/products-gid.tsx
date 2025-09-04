@@ -28,7 +28,7 @@ const ProductsGid = ({ categories, products }: ProductsGridProps) => {
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>
       <div className='mb-8'>
-        <h1 className='mb-2 text-3xl font-bold'>Productos</h1>
+        <h1 className='font-montserrat mb-2 text-3xl font-semibold'>Productos</h1>
       </div>
 
       <div className='flex flex-col gap-8 md:flex-row'>

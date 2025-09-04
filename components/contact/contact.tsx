@@ -73,7 +73,7 @@ export default function Contact() {
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>
       <div className='mb-8'>
-        <h1 className='mb-2 text-3xl font-bold'>Contáctanos</h1>
+        <h1 className='font-montserrat mb-2 text-3xl font-semibold'>Contáctanos</h1>
       </div>
 
       <div className='grid gap-8 md:grid-cols-3'>
