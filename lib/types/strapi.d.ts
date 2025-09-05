@@ -37,7 +37,7 @@ export interface StrapiCategory {
   };
 }
 
-export interface slider {
+export interface sliderDto {
   button: {
     href: string;
     id: number;
@@ -69,7 +69,7 @@ export interface StrapiHome {
   cover: StrapiImage;
   categoriesTitle: string;
   productsTitle: string;
-  slider: slider[];
+  slider: sliderDto[];
 }
 
 interface Link {
