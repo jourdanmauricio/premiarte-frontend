@@ -10,8 +10,8 @@ const Categories = async ({ categoriesTitle }: CategoriesProps) => {
   const categories = await getCategories({ page: '1', pageSize: 100, featured: true });
 
   return (
-    <section className='bg-muted-foreground/10 py-20'>
-      <div className='container px-4 md:px-6'>
+    <section className='container px-4 py-20 md:px-6'>
+      <div className='px-4 md:px-6'>
         <h2 className='text-center text-2xl font-semibold tracking-tight text-orange-500 md:text-3xl'>
           {categoriesTitle || 'Explore nuestras categorías'}
         </h2>
@@ -20,7 +20,7 @@ const Categories = async ({ categoriesTitle }: CategoriesProps) => {
             <Link
               key={category.id}
               href={`/categoria/${category.slug}`}
-              className='group relative w-64 overflow-hidden rounded-sm bg-background shadow-md transition-all hover:shadow-lg'
+              className='img-appear group relative w-64 overflow-hidden rounded-sm bg-background shadow-md transition-all hover:shadow-lg'
             >
               <div className='relative aspect-square'>
                 <Image

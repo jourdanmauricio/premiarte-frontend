@@ -17,14 +17,14 @@ const FeaturedProducts = async ({
   const { products } = await getProducts({ featured: true, page: '1', pageSize: PAGE_SIZE });
 
   return (
-    <section className='container border-b py-20'>
+    <section className='container border-b px-4 py-20 md:px-6'>
       <div className='px-4 md:px-6'>
         <h2 className='text-center text-2xl font-semibold tracking-tight text-orange-500 md:text-3xl'>
           {productsTitle}
         </h2>
         <div className='flex flex-wrap justify-center gap-6 pt-24'>
           {products.map((product) => (
-            <div key={product.id} className='group relative w-64'>
+            <div key={product.id} className='img-appear group relative w-64'>
               <div className='aspect-square overflow-hidden rounded-sm bg-background'>
                 <Image
                   src={product.images[0].url}

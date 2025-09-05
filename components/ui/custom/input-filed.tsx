@@ -54,10 +54,11 @@ const InputFieldComponent = forwardRef<HTMLInputElement, InputFieldProps>(
               aria-describedby={description ? formDescriptionId : undefined}
               className={cn(
                 'h-11 rounded-md border-2 outline-none transition-colors focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0',
+                className,
                 enableClean && props.value && 'pr-10',
                 error
                   ? 'border-destructive focus:border-destructive'
-                  : 'border-gray-300 focus:border-primary'
+                  : 'border-gray-300 focus:border-primary/50'
               )}
               {...props}
             />

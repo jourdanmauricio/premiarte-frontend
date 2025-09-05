@@ -43,11 +43,11 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
   }, [api]);
 
   return (
-    <section className='relative border-b border-gray-200 md:container'>
+    <section className='relative'>
       <div className='relative mx-auto w-full'>
         <Carousel
           setApi={setApi}
-          className='relative w-full overflow-hidden rounded-lg shadow-2xl'
+          className='relative w-full overflow-hidden shadow-2xl'
           opts={{ loop: true }}
           plugins={[
             Autoplay({
@@ -59,7 +59,7 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
           <CarouselContent>
             {slider.map((slide, index) => (
               <CarouselItem key={slide.card.id}>
-                <Card className='relative overflow-hidden border-0'>
+                <Card className='relative overflow-hidden rounded-none border-0'>
                   <CardContent className='relative flex aspect-auto h-[500px] items-center p-0 md:h-[600px]'>
                     {/* Imagen con múltiples capas de superposición */}
                     <div className='absolute inset-0'>
@@ -76,7 +76,7 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
                     </div>
 
                     {/* Contenido principal con animaciones */}
-                    <div className='relative z-10 flex flex-col gap-6 p-8 text-white duration-1000 animate-in slide-in-from-left-8 md:w-2/3 md:p-16 lg:w-1/2 lg:p-20'>
+                    <div className='relative z-10 flex flex-col gap-6 p-8 text-white duration-1000 animate-in slide-in-from-left-8 md:container md:pl-20 lg:pl-8'>
                       {/* Badge opcional para categoría */}
                       <div className='inline-flex w-fit'>
                         <span className='rounded-full bg-gradient-to-r from-red-500 to-orange-500 px-4 py-1.5 text-sm font-medium text-white shadow-lg'>
@@ -204,7 +204,7 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
 
           {/* Imagen lateral mejorada */}
           <div className='group relative'>
-            <div className='relative h-[350px] overflow-hidden rounded-2xl shadow-2xl sm:h-[450px] lg:h-[550px]'>
+            <div className='relative h-[350px] overflow-hidden shadow-2xl sm:h-[450px] lg:h-[550px]'>
               <Image
                 src={image.url}
                 alt={image.alt}
@@ -216,7 +216,7 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
             </div>
 
             {/* Efecto de brillo */}
-            <div className='absolute inset-0 -z-10 scale-110 rounded-2xl bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100'></div>
+            <div className='absolute inset-0 -z-10 scale-110 bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100'></div>
           </div>
         </div>
       </div>

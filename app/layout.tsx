@@ -110,7 +110,7 @@ export default async function RootLayout({
           </div>
         </div>
         <Providers>
-          <div className='flex min-h-screen flex-col'>
+          <div className='flex min-h-screen w-full flex-col'>
             {globalInfo.banner.isVisible && <Banner message={globalInfo.banner.description} />}
             <Header logoUrl={globalInfo.logo} />
             <main className='flex-1'>{children}</main>
