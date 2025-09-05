@@ -15,7 +15,7 @@ const Categories = async ({ categoriesTitle }: CategoriesProps) => {
         <h2 className='text-center text-2xl font-semibold tracking-tight text-orange-500 md:text-3xl'>
           {categoriesTitle || 'Explore nuestras categorías'}
         </h2>
-        <div className='mt-24 flex flex-wrap justify-center gap-6'>
+        <div className='mt-24 flex flex-wrap justify-center gap-8'>
           {categories.categories.map((category) => (
             <Link
               key={category.id}

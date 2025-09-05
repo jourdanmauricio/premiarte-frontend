@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { Filter } from 'lucide-react';
 
@@ -14,8 +15,7 @@ import {
 import { CustomPagination } from '@/components/ui/custom/custom-pagination';
 import { Category, Products } from '@/lib/types/strapi';
 import { FilterSidebar } from '@/components/products/filter-sidebar';
-import { ProductCard } from '@/components/products/product-card';
-import Link from 'next/link';
+import { ProductCard } from '@/components/ui/custom/product-card';
 
 type ProductsGridProps = {
   categories: Category[];
@@ -28,7 +28,7 @@ const ProductsGid = ({ categories, products }: ProductsGridProps) => {
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>
       <div className='mb-8'>
-        <h1 className='font-montserrat mb-2 text-3xl font-semibold'>Productos</h1>
+        <h1 className='mb-2 font-montserrat text-3xl font-semibold'>Productos</h1>
       </div>
 
       <div className='flex flex-col gap-8 md:flex-row'>

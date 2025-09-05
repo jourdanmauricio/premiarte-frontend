@@ -1,8 +1,9 @@
+import Image from 'next/image';
+import { SearchIcon } from 'lucide-react';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/lib/types/strapi';
-import { Heart, Search, ShoppingCart } from 'lucide-react';
-import Image from 'next/image';
 
 type ProductCardProps = {
   product: Product;
@@ -11,15 +12,15 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <>
-      <div className='aspect-square overflow-hidden rounded-sm bg-background'>
+      <div className='aspect-square overflow-hidden rounded-sm bg-background hover:cursor-pointer'>
         <Image
           src={product.images[0].url || '/placeholder.svg'}
           alt={product.images[0].alt}
           width={300}
           height={300}
-          className='h-full w-full object-cover transition-transform group-hover:scale-105'
+          className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
         />
-        <div className='absolute right-4 top-4 flex flex-col gap-2'>
+        {/* <div className='absolute right-4 top-4 flex flex-col gap-2'>
           <Button
             size='icon'
             variant='secondary'
@@ -36,11 +37,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <Search className='h-4 w-4' />
             <span className='sr-only'>Quick view</span>
           </Button>
-        </div>
-        <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100'>
+        </div> */}
+        <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
           <Button className='mx-auto'>
-            <ShoppingCart className='mr-2 h-4 w-4' />
-            Add to Cart
+            <SearchIcon className='mr-2 h-4 w-4' />
+            Ver detalle
           </Button>
         </div>
       </div>

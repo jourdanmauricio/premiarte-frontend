@@ -61,7 +61,6 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
               <CarouselItem key={slide.card.id}>
                 <Card className='relative overflow-hidden rounded-none border-0'>
                   <CardContent className='relative flex aspect-auto h-[500px] items-center p-0 md:h-[600px]'>
-                    {/* Imagen con múltiples capas de superposición */}
                     <div className='absolute inset-0'>
                       <Image
                         src={slide.card.image.url}
@@ -84,19 +83,16 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
                         </span>
                       </div>
 
-                      {/* Título con mejor tipografía */}
                       <h1 className='font-montserrat text-3xl font-semibold leading-tight tracking-tight drop-shadow-2xl md:text-4xl lg:text-5xl xl:text-6xl'>
                         <span className='bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent'>
                           {slide.card.title}
                         </span>
                       </h1>
 
-                      {/* Descripción mejorada */}
                       <div className='max-w-lg text-lg leading-relaxed text-gray-200 drop-shadow-lg md:text-xl'>
                         <BlocksRenderer content={slide.card.description} />
                       </div>
 
-                      {/* Botón mejorado con efectos */}
                       <div className='mt-4 flex flex-col gap-4 sm:flex-row'>
                         <Button
                           className='group relative overflow-hidden rounded-lg border-0 bg-gradient-to-r from-red-600 to-orange-600 px-8 py-4 font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-red-700 hover:to-orange-700 hover:shadow-2xl'
@@ -125,14 +121,11 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
             ))}
           </CarouselContent>
 
-          {/* Controles mejorados */}
-          {/* <CarouselPrevious className='absolute left-0 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 border-white/30 bg-white/20 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/30 md:left-2 md:flex' /> */}
           <CarouselPrevious className='absolute left-2 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 border-0 bg-white/20 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white/30 md:flex' />
-          {/* <CarouselNext className='absolute -right-0 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 border-white/30 bg-white/20 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/30 md:right-2 md:flex' /> */}
+
           <CarouselNext className='absolute right-2 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 border-0 bg-white/20 text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white/30 md:flex' />
         </Carousel>
 
-        {/* Indicadores mejorados */}
         <div className='relative flex items-center justify-center py-6'>
           <div className='absolute -top-10 flex gap-3'>
             {api?.scrollSnapList().map((_, index) => (
@@ -152,7 +145,6 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
         </div>
       </div>
 
-      {/* Sección inferior mejorada */}
       <div className='container px-4 py-16 md:px-6 md:py-24 lg:py-32'>
         <div className='grid items-center gap-12 lg:grid-cols-2 lg:gap-16'>
           <div className='space-y-8 text-center lg:text-left'>
@@ -160,7 +152,7 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
             <div className='flex justify-center lg:justify-start'>
               <div className='group relative'>
                 <Image
-                  className='drop-shadow-lg transition-transform duration-300 group-hover:scale-110'
+                  className='drop-shadow-lg transition-transform duration-300 group-hover:scale-105'
                   src={logo}
                   alt='Premiarte'
                   width={100}
@@ -209,7 +201,8 @@ const Hero = ({ title, description, image, slider, logo }: HeroProps) => {
                 src={image.url}
                 alt={image.alt}
                 fill
-                className='object-cover transition-transform duration-700 group-hover:scale-110'
+                className='object-cover'
+                // className='object-cover transition-transform duration-700 group-hover:scale-110'
                 priority
               />
               <div className='absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100'></div>

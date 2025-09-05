@@ -75,6 +75,6 @@
     view-timeline-axis: block;
     animation-timeline: --image;
     animation-name: show-image;
-    animation-range: entry 15% cover 50%;
+    animation-range: entry 15% cover 60%;
     animation-fill-mode: both;
 }

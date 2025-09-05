@@ -59,24 +59,24 @@ const Newsletter = () => {
   return (
     <section className='relative overflow-hidden py-24'>
       {/* Background sofisticado más oscuro */}
-      <div className='absolute inset-0'>
-        {/* Gradiente principal más oscuro */}
-        {/* <div className='absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black'></div> */}
+      {/* <div className='absolute inset-0'> */}
+      {/* Gradiente principal más oscuro */}
+      {/* <div className='absolute inset-0 bg-gradient-to-br from-black via-gray-950 to-black'></div> */}
 
-        {/* Gradiente para esfumar la parte superior */}
-        {/* <div className='absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black'></div> */}
+      {/* Gradiente para esfumar la parte superior */}
+      {/* <div className='absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black'></div> */}
 
-        {/* Gradientes de color superpuestos más sutiles */}
-        {/* <div className='via-orange-500/8 to-red-700/12 absolute inset-0 bg-gradient-to-r from-red-900/10'></div> */}
+      {/* Gradientes de color superpuestos más sutiles */}
+      {/* <div className='via-orange-500/8 to-red-700/12 absolute inset-0 bg-gradient-to-r from-red-900/10'></div> */}
 
-        {/* Efectos geométricos reposicionados */}
-        <div className='absolute left-1/4 top-1/2 h-96 w-96 rounded-full bg-red-600/10 blur-3xl'></div>
-        <div className='absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-orange-500/5 blur-3xl'></div>
+      {/* Efectos geométricos reposicionados */}
+      {/* <div className='absolute left-1/4 top-1/2 h-96 w-96 rounded-full bg-red-600/10 blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-orange-500/5 blur-3xl'></div> */}
 
-        {/* Líneas decorativas */}
-        <div className='absolute right-0 top-0 h-full w-px origin-top -rotate-12 transform bg-gradient-to-b from-orange-700/30 via-red-900/20 to-transparent'></div>
-        <div className='absolute bottom-0 left-0 h-px w-full origin-left rotate-6 transform bg-gradient-to-r from-transparent via-red-600/30 to-transparent'></div>
-      </div>
+      {/* Líneas decorativas */}
+      {/* <div className='absolute right-0 top-0 h-full w-px origin-top -rotate-12 transform bg-gradient-to-b from-orange-700/30 via-red-900/20 to-transparent'></div>
+        <div className='absolute bottom-0 left-0 h-px w-full origin-left rotate-6 transform bg-gradient-to-r from-transparent via-red-600/30 to-transparent'></div> */}
+      {/* </div> */}
 
       <div className='container relative z-10 px-4 md:px-6'>
         <div className='flex flex-col items-center space-y-8 text-center'>

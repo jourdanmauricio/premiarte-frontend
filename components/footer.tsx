@@ -12,7 +12,7 @@ type FooterProps = {
 export default function Footer({ logoUrl, footer }: FooterProps) {
   return (
     <footer className='border-t text-muted-foreground'>
-      <div className='container px-4 py-8 md:px-6 md:py-20'>
+      <div className='container px-4 py-8 md:px-6 md:pt-20'>
         <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4'>
           <div className='space-y-4'>
             <Link href='/' className='flex items-center gap-2'>
