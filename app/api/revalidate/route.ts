@@ -10,16 +10,16 @@ export async function POST(req: NextRequest) {
     const authHeader = req.headers.get('Authorization');
     const expectedToken = `Bearer ${process.env.REVALIDATION_SECRET}`;
 
-    // if (!apiKey || apiKey !== validApiKey) {
-    //   return NextResponse.json({ error: 'Unauthorized: Invalid API Key' }, { status: 401 });
-    // }
-
     if (authHeader !== expectedToken) {
       console.error('❌ Intento de acceso no autorizado al webhook');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log('🏷️ Revalidando tag: premiarte-tag');
+    // Leer el body de la solicitud
+    const body = await req.json();
+
+    console.log('📦 Body de la solicitud de Strapi:', body);
+
     // revalidatePath('/');
     // Revalidar el tag específico
     revalidateTag('premiarte-tag');

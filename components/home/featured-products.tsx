@@ -1,10 +1,8 @@
-import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/ui/custom/product-card';
 import { getProducts } from '@/lib/fetch/get-products';
-import { Heart, Search, ShoppingCart } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
 
 type FeaturedProductsProps = {
   productsTitle?: string;

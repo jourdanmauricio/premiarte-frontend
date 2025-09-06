@@ -40,3 +40,24 @@ export function getProducts({
     return { products, pagination: res.meta?.pagination };
   });
 }
+
+export function getProduct({ slug }: { slug: string }) {
+  console.log(`URL`, `products/${slug}`);
+  return queryServer<StrapiProducts[]>(`products/${slug}`).then((res) => {
+    console.log('res', res);
+    // const product = res.data.map((prod) => ({
+    //   ...prod,
+    //   images: prod.images[0].url.includes('https')
+    //     ? prod.images.map((image) => ({
+    //         url: `${image.url}`,
+    //         alt: image.alternativeText || prod.name,
+    //       }))
+    //     : prod.images.map((image) => ({
+    //         url: `${STRAPI_HOST}${image.url}`,
+    //         alt: image.alternativeText || prod.name,
+    //       })),
+    // }));
+
+    return { product: res.data };
+  });
+}

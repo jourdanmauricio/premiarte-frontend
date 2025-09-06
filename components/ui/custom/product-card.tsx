@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import { SearchIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -10,9 +13,19 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const router = useRouter();
+
+  const handleProduct = () => {
+    console.log('CLICKKKKKKKKKKKKKKKKKKKKKK', product.slug);
+    router.push(`/productos/${product.slug}`);
+  };
+
   return (
     <>
-      <div className='aspect-square overflow-hidden rounded-sm bg-background hover:cursor-pointer'>
+      <div
+        className='aspect-square overflow-hidden rounded-sm bg-background hover:cursor-pointer'
+        onClick={handleProduct}
+      >
         <Image
           src={product.images[0].url || '/placeholder.svg'}
           alt={product.images[0].alt}
