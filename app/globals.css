@@ -85,17 +85,9 @@
     animation-duration: 0.3s;
 }
 
-::view-transition-old(product-image-*),
-::view-transition-new(product-image-*) {
+/* ::view-transition-old(product-image),
+::view-transition-new(product-image) {
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
 }
-
-/* Asegurar que las imágenes mantengan su aspecto durante la transición */
-::view-transition-old(product-image) {
-    object-fit: cover;
-}
-
-::view-transition-new(product-image) {
-    object-fit: cover;
-}
+ */

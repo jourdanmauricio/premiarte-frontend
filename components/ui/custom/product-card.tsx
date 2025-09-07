@@ -23,7 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             width={300}
             height={300}
             className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
-            style={{ viewTransitionName: `product-image-${product.id}` }}
+            // style={{ viewTransitionName: `product-image-${product.id}` }}
           />
 
           <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
