@@ -1,6 +1,10 @@
 import { CategoriesGid } from '@/components/categories/categories-gid';
 import { getCategories } from '@/lib/fetch/get-categories';
 
+// Configurar como página estática
+export const dynamic = 'force-static';
+export const revalidate = 86400; // 24 horas
+
 const PAGE_SIZE = 6;
 
 type CategoryPageProps = {

@@ -16,7 +16,7 @@ export function queryServer<T>(
     },
     next: {
       tags: ['premiarte-tag'],
-      revalidate: 3600,
+      revalidate: 86400,
     },
   };
 

@@ -1,24 +1,20 @@
+import { ProductGrid } from '@/components/product/product-grid';
 import { getProduct } from '@/lib/fetch/get-products';
 
 type ProductPageProps = {
-  // searchParams: Promise<{ [key: string]: string | undefined }>;
   params: { slug: string };
 };
 
-const PAGE_SIZE = 9;
-const ProductPage = async ({ params }: ProductPageProps) => {
-  const { slug } = params;
+// Configurar como página estática
+export const dynamic = 'force-static';
+export const revalidate = 86400; // 24 horas
 
-  console.log('slug', slug);
+const ProductPage = async ({ params }: ProductPageProps) => {
+  const { slug } = await params;
 
   const product = await getProduct({ slug: slug || '' });
 
-  return (
-    <div>
-      {/* <ProductsGid categories={categories.categories} products={products} /> */}
-      {JSON.stringify(product)}
-    </div>
-  );
+  return <ProductGrid product={product} />;
 };
 
 export default ProductPage;

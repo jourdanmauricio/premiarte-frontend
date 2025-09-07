@@ -9,6 +9,7 @@ import { getGlobalInfo } from '@/lib/fetch/get-global-info';
 import { Banner } from '@/components/banner';
 import { Providers } from './providers';
 import { Toaster } from '@/components/ui/toaster';
+import { unstable_ViewTransition as ViewTransition } from 'react';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -113,7 +114,9 @@ export default async function RootLayout({
           <div className='flex min-h-screen w-full flex-col'>
             {globalInfo.banner.isVisible && <Banner message={globalInfo.banner.description} />}
             <Header logoUrl={globalInfo.logo} />
-            <main className='flex-1'>{children}</main>
+            <ViewTransition name='page'>
+              <main className='flex-1'>{children}</main>
+            </ViewTransition>
             <Footer logoUrl={globalInfo.logo} footer={globalInfo.footer} />
           </div>
           <Toaster />

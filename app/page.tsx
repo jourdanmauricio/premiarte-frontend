@@ -10,6 +10,10 @@ import Newsletter from '@/components/home/newsletter';
 import { getGlobalInfo } from '@/lib/fetch/get-global-info';
 import { Slider } from '@/components/home/slider';
 
+// Configurar como página estática
+export const dynamic = 'force-static';
+export const revalidate = 86400; // 24 horas
+
 export default async function HomePage() {
   const { title, description, image, categoriesTitle, productsTitle, slider } = await getHomeInfo();
   const { logo } = await getGlobalInfo();

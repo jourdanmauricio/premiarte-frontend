@@ -78,3 +78,24 @@
     animation-range: entry 15% cover 60%;
     animation-fill-mode: both;
 }
+
+/* View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.3s;
+}
+
+::view-transition-old(product-image-*),
+::view-transition-new(product-image-*) {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+/* Asegurar que las imágenes mantengan su aspecto durante la transición */
+::view-transition-old(product-image) {
+    object-fit: cover;
+}
+
+::view-transition-new(product-image) {
+    object-fit: cover;
+}

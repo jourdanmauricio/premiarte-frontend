@@ -42,22 +42,21 @@ export function getProducts({
 }
 
 export function getProduct({ slug }: { slug: string }) {
-  console.log(`URL`, `products/${slug}`);
-  return queryServer<StrapiProducts[]>(`products/${slug}`).then((res) => {
-    console.log('res', res);
-    // const product = res.data.map((prod) => ({
-    //   ...prod,
-    //   images: prod.images[0].url.includes('https')
-    //     ? prod.images.map((image) => ({
-    //         url: `${image.url}`,
-    //         alt: image.alternativeText || prod.name,
-    //       }))
-    //     : prod.images.map((image) => ({
-    //         url: `${STRAPI_HOST}${image.url}`,
-    //         alt: image.alternativeText || prod.name,
-    //       })),
-    // }));
+  return queryServer<StrapiProducts>(`products/${slug}`).then((response) => {
+    const res = response.data;
+    const product = {
+      ...res,
+      images: res.images[0].url.includes('https')
+        ? res.images.map((image) => ({
+            url: `${image.url}`,
+            alt: image.alternativeText || res.name,
+          }))
+        : res.images.map((image) => ({
+            url: `${STRAPI_HOST}${image.url}`,
+            alt: image.alternativeText || res.name,
+          })),
+    };
 
-    return { product: res.data };
+    return product;
   });
 }
