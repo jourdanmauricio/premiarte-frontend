@@ -16,13 +16,15 @@ import { CustomPagination } from '@/components/ui/custom/custom-pagination';
 import { Category, Products } from '@/lib/types/strapi';
 import { FilterSidebar } from '@/components/products/filter-sidebar';
 import { ProductCard } from '@/components/ui/custom/product-card';
+import { CategoryPagination } from '@/components/ui/custom/category-pagination';
 
 type ProductsGridProps = {
   categories: Category[];
   products: Products;
+  categoryId?: string; // Agregar categoryId
 };
 
-const ProductsGid = ({ categories, products }: ProductsGridProps) => {
+const ProductsGid = ({ categories, products, categoryId }: ProductsGridProps) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -72,7 +74,7 @@ const ProductsGid = ({ categories, products }: ProductsGridProps) => {
               </p>
 
               <Button asChild>
-                <Link href='/categoria/productos'>Ver todos los productos</Link>
+                <Link href='/categoria/productos/1'>Ver todos los productos</Link>
               </Button>
             </div>
           ) : (
@@ -85,7 +87,15 @@ const ProductsGid = ({ categories, products }: ProductsGridProps) => {
             </div>
           )}
 
-          <CustomPagination pageCount={products.pagination?.pageCount || 1} />
+          {/* Usar CategoryPagination si hay categoryId, sino CustomPagination */}
+          {categoryId ? (
+            <CategoryPagination
+              pageCount={products.pagination?.pageCount || 1}
+              categoryId={categoryId}
+            />
+          ) : (
+            <CustomPagination pageCount={products.pagination?.pageCount || 1} />
+          )}
         </div>
       </div>
     </div>

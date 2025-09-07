@@ -19,7 +19,7 @@ const Categories = async ({ categoriesTitle }: CategoriesProps) => {
           {categories.categories.map((category) => (
             <Link
               key={category.id}
-              href={`/categoria/${category.slug}`}
+              href={`/categoria/${category.slug}/1`}
               className='img-appear group relative w-64 overflow-hidden rounded-sm bg-background shadow-md transition-all hover:shadow-lg'
             >
               <div className='relative aspect-square'>

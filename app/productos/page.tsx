@@ -19,9 +19,6 @@ const ProductsPage = async ({ searchParams }: ProductsPageProps) => {
   const categories = await getCategories({ page: '1', pageSize: 1000 });
   const products = await getProducts({ page: page, pageSize: PAGE_SIZE });
 
-  console.log('page', page);
-  console.log('products', products);
-
   return (
     <div>
       <ProductsGid categories={categories.categories} products={products} />

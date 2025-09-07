@@ -46,13 +46,13 @@ const CategoriesGid = ({ categories }: CategoriesGridProps) => {
   };
 
   const handleViewProducts = (category: Category) => {
-    router.push(`/categoria/${category.slug}`);
+    router.push(`/categoria/${category.slug}/1`);
   };
 
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>
       <div className='mb-8'>
-        <h1 className='font-montserrat mb-2 text-3xl font-semibold'>Categorías</h1>
+        <h1 className='mb-2 font-montserrat text-3xl font-semibold'>Categorías</h1>
       </div>
 
       <div className='flex flex-wrap justify-center gap-6 pt-24'>

@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
     // Leer el body de la solicitud
     const body = await req.json();
 
-    console.log('📦 Body de la solicitud de Strapi:', body);
-
     // revalidatePath('/');
     // Revalidar el tag específico
     revalidateTag('premiarte-tag');

@@ -18,14 +18,14 @@ const FilterSidebar = ({ categories, isMobile }: FilterSidebarProps) => {
         <h3 className='text-lg font-medium'>Categorías</h3>
         <div className='space-y-2'>
           <Link
-            href={`/categoria/productos`}
-            className={`group flex cursor-pointer items-center space-x-2 ${pathname === `/categoria/productos` ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
+            href={`/categoria/productos/1`}
+            className={`group flex cursor-pointer items-center space-x-2 ${pathname === `/categoria/productos/1` ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
           >
             Todos los productos
           </Link>
           {categories.map((category) => (
             <Link
-              href={`/categoria/${category.slug}`}
+              href={`/categoria/${category.slug}/1`}
               key={category.id}
               className={`group flex cursor-pointer items-center space-x-2 ${pathname === `/categoria/${category.slug}` ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
             >

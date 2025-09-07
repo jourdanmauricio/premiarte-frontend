@@ -15,8 +15,7 @@ export function queryServer<T>(
       'Content-Type': 'application/json',
     },
     next: {
-      tags: ['premiarte-tag'],
-      revalidate: 86400,
+      revalidate: 86400, // Cache por 24 horas
     },
   };
 
