@@ -19,7 +19,7 @@ const FilterSidebar = ({ categories, isMobile }: FilterSidebarProps) => {
         <div className='space-y-2'>
           <Link
             href={`/categoria/productos/1`}
-            className={`group flex cursor-pointer items-center space-x-2 ${pathname === `/categoria/productos/1` ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
+            className={`group flex cursor-pointer items-center space-x-2 ${pathname.startsWith('/categoria/productos') ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
           >
             Todos los productos
           </Link>
@@ -27,7 +27,7 @@ const FilterSidebar = ({ categories, isMobile }: FilterSidebarProps) => {
             <Link
               href={`/categoria/${category.slug}/1`}
               key={category.id}
-              className={`group flex cursor-pointer items-center space-x-2 ${pathname === `/categoria/${category.slug}` ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
+              className={`group flex cursor-pointer items-center space-x-2 ${pathname.startsWith(`/categoria/${category.slug}`) ? 'font-bold text-primary' : 'font-normal text-muted-foreground'} transition-colors hover:text-primary`}
             >
               {category.name}
             </Link>
