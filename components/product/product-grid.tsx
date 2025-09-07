@@ -24,7 +24,7 @@ const ProductGrid = ({ product }: ProductGridProps) => {
               width={400}
               height={400}
               priority
-              // style={{ viewTransitionName: `product-image-${product.id}` }}
+              style={{ viewTransitionName: `product-image-${product.id}` }}
             />
           ) : (
             <div className='flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500'>
