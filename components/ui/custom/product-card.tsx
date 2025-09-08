@@ -3,16 +3,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Product } from '@/lib/types/strapi';
+import { useViewTransition } from '@/components/hooks/useViewTransition';
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const transitionNames = useViewTransition(product.id);
+
   return (
     <>
       <Link href={`/productos/${product.slug}`}>
@@ -23,7 +27,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             width={300}
             height={300}
             className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
-            style={{ viewTransitionName: `product-image-${product.id}` }}
+            style={{ viewTransitionName: transitionNames.image }}
           />
 
           <div className='absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100'>
@@ -38,7 +42,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <Badge variant='outline' className='mb-2'>
             {product.categories[0].name}
           </Badge>
-          <h3 className='font-medium'>{product.name}</h3>
+          <h3 className='font-medium' style={{ viewTransitionName: transitionNames.title }}>
+            {product.name}
+          </h3>
           <div className='flex justify-center gap-2'></div>
         </div>
       </Link>

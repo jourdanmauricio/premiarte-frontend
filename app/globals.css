@@ -80,14 +80,31 @@
 }
 
 /* View Transitions */
-::view-transition-old(root),
+/* ::view-transition-old(root),
 ::view-transition-new(root) {
+    animation-duration: 0.1s;
+} */
+
+/* Solo aplicar transición de root cuando NO es navegación entre categorías */
+html:not([data-category-navigation]) ::view-transition-old(root),
+html:not([data-category-navigation]) ::view-transition-new(root) {
     animation-duration: 0.1s;
 }
 
-/* ::view-transition-old(product-image),
+/* Deshabilitar transición de root para navegación entre categorías */
+html[data-category-navigation] ::view-transition-old(root),
+html[data-category-navigation] ::view-transition-new(root) {
+    animation: none !important;
+}
+
+::view-transition-old(product-image),
 ::view-transition-new(product-image) {
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
 }
- */
+
+::view-transition-old(product-title),
+::view-transition-new(product-title) {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}

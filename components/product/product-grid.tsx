@@ -1,14 +1,16 @@
-import { StrapiProducts } from '@/lib/types/strapi';
+'use client';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
 
 import { Product } from '@/lib/types/strapi';
+import { useViewTransition } from '@/components/hooks/useViewTransition';
 
 type ProductGridProps = {
   product: Product;
 };
 
 const ProductGrid = ({ product }: ProductGridProps) => {
+  const transitionNames = useViewTransition(product.id);
   return (
     <div className='container px-4 py-8 md:px-6 md:py-12'>
       <div className='mb-8'>
@@ -24,7 +26,7 @@ const ProductGrid = ({ product }: ProductGridProps) => {
               width={400}
               height={400}
               priority
-              style={{ viewTransitionName: `product-image-${product.id}` }}
+              style={{ viewTransitionName: transitionNames.image }}
             />
           ) : (
             <div className='flex h-64 w-full items-center justify-center rounded-lg bg-gray-200 text-gray-500'>
@@ -34,7 +36,12 @@ const ProductGrid = ({ product }: ProductGridProps) => {
         </div>
         <div className='w-1/2'>
           <div className='mt-6 md:mt-0 md:w-1/2'></div>
-          <h2 className='text-2xl font-semibold'>{product.name}</h2>
+          <h2
+            className='text-2xl font-semibold'
+            style={{ viewTransitionName: transitionNames.title }}
+          >
+            {product.name}
+          </h2>
           <BlocksRenderer content={product.description} />
 
           <p className='mt-4 text-lg text-gray-700'>Código: {product.sku}</p>
