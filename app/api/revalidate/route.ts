@@ -24,12 +24,20 @@ export async function POST(req: NextRequest) {
       revalidatePath(`/categoria/${body.entry.slug}/1`);
     }
 
-    // revalidatePath('/');
-    // Revalidar el tag específico
-    // revalidateTag('premiarte-tag');
+    if (body.model === 'product') {
+      revalidatePath('/categoria/productos/1');
+      revalidatePath(`/productos/${body.entry.slug}`);
+      if (body.entry.featured) revalidatePath(`/`);
+      body.entry.categories.map((cat: any) => revalidatePath(`/categoria/${cat.slug}/1`));
+    }
 
-    // await revalidatePath('/');
-    // await revalidatePath('/productos');
+    if (body.model === 'home') {
+      revalidatePath('/');
+    }
+
+    if (body.model === 'global') {
+      revalidatePath('/');
+    }
 
     console.log('✅ Revalidación exitosa');
 
