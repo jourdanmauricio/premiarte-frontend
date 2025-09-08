@@ -39,6 +39,7 @@ export default function Header({ logoUrl }: HaeaderProps) {
                   key={item.id}
                   href={item.href}
                   className='text-sm font-medium transition-colors hover:text-primary'
+                  prefetch={true}
                 >
                   {item.label}
                 </Link>
