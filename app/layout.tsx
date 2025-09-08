@@ -114,9 +114,9 @@ export default async function RootLayout({
           <div className='flex min-h-screen w-full flex-col'>
             {globalInfo.banner.isVisible && <Banner message={globalInfo.banner.description} />}
             <Header logoUrl={globalInfo.logo} />
-            {/* <ViewTransition name='page'> */}
-            <main className='flex-1'>{children}</main>
-            {/* </ViewTransition> */}
+            <ViewTransition name='page'>
+              <main className='flex-1'>{children}</main>
+            </ViewTransition>
             <Footer logoUrl={globalInfo.logo} footer={globalInfo.footer} />
           </div>
           <Toaster />
