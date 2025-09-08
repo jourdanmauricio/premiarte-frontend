@@ -1,6 +1,6 @@
 // app/api/regenerate-site/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,15 +17,20 @@ export async function POST(req: NextRequest) {
 
     // Leer el body de la solicitud
     const body = await req.json();
+    console.log('Body', body);
+
+    if (body.model === 'category') {
+      revalidatePath('categoria');
+    }
 
     // revalidatePath('/');
     // Revalidar el tag específico
-    revalidateTag('premiarte-tag');
+    // revalidateTag('premiarte-tag');
 
     // await revalidatePath('/');
     // await revalidatePath('/productos');
 
-    console.log('✅ Tag revalidado exitosamente');
+    console.log('✅ Revalidación exitosa');
 
     return NextResponse.json({
       success: true,
