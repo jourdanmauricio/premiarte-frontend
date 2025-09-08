@@ -20,7 +20,8 @@ export async function POST(req: NextRequest) {
     console.log('Body', body);
 
     if (body.model === 'category') {
-      revalidatePath('categoria');
+      revalidatePath('/categoria');
+      revalidatePath(`/categoria/${body.entry.slug}/1`);
     }
 
     // revalidatePath('/');
