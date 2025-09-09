@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchIcon } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';

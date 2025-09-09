@@ -1,5 +1,5 @@
 import { ProductGrid } from '@/components/product/product-grid';
-import { getProduct } from '@/lib/fetch/get-products';
+import { getProduct, getProducts } from '@/lib/fetch/get-products';
 
 type ProductPageProps = {
   params: { slug: string };
@@ -14,7 +14,15 @@ const ProductPage = async ({ params }: ProductPageProps) => {
 
   const product = await getProduct({ slug: slug || '' });
 
-  return <ProductGrid product={product} />;
+  const allRelatedProducts = await getProducts({
+    categoryId: product.categories[0].slug,
+    page: '1',
+    pageSize: 4,
+  });
+
+  const relatedProducts = allRelatedProducts.products.filter((prod) => prod.id !== product.id);
+
+  return <ProductGrid product={product} relatedProducts={relatedProducts} />;
 };
 
 export default ProductPage;
