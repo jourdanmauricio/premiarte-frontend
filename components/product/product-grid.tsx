@@ -14,7 +14,7 @@ type ProductGridProps = {
 };
 
 const ProductGrid = ({ product, relatedProducts }: ProductGridProps) => {
-  const transitionNames = useViewTransition(product.id);
+  const transitionNames = useViewTransition(product);
 
   return (
     <section>
@@ -69,7 +69,6 @@ const ProductGrid = ({ product, relatedProducts }: ProductGridProps) => {
                       width={200}
                       height={200}
                       className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
-                      style={{ viewTransitionName: transitionNames.image }}
                     />
                   </div>
                 </Link>

@@ -1,5 +1,6 @@
 // hooks/useViewTransition.ts
 'use client';
+import { Product } from '@/lib/types/strapi';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +11,7 @@ interface TransitionNames {
 
 type CategorySlug = string | null;
 
-export const useViewTransition = (productId: string | number): TransitionNames => {
+export const useViewTransition = (product: Product): TransitionNames => {
   const pathname = usePathname();
   const [sourceCategory, setSourceCategory] = useState<CategorySlug>(null);
 
@@ -28,48 +29,44 @@ export const useViewTransition = (productId: string | number): TransitionNames =
   // Para páginas de detalle, detectar desde dónde vinimos
   useEffect(() => {
     if (pathname.startsWith('/productos/') && typeof window !== 'undefined') {
-      const referrer = document.referrer;
-
-      if (referrer.includes('/categoria/productos')) {
+      const storedCategory = sessionStorage.getItem('lastCategory');
+      if (storedCategory) {
+        setSourceCategory(storedCategory);
+      } else {
         setSourceCategory('productos');
-      } else if (referrer.includes('/categoria/')) {
-        // Extraer categoría del referrer
-        const referrerSegments = referrer.split('/');
-        const categoryIndex = referrerSegments.findIndex((segment) => segment === 'categoria');
-
-        if (categoryIndex !== -1 && referrerSegments[categoryIndex + 1]) {
-          const categorySlug = referrerSegments[categoryIndex + 1];
-          // Limpiar posibles query params o fragmentos
-          setSourceCategory(categorySlug.split('?')[0].split('#')[0]);
-        }
       }
     }
-  }, [pathname]);
+  }, [pathname, product.id]);
 
   const getTransitionNames = (): TransitionNames => {
-    // Si estamos en una página de listado (categorías)
-    if (pathname.includes('/categoria/')) {
-      const currentCategory = getCurrentCategory();
-
-      if (currentCategory) {
+    // Si estamos en una página de detalle
+    if (pathname.startsWith('/productos/')) {
+      // Usar sourceCategory (que viene del sessionStorage)
+      if (sourceCategory) {
         return {
-          image: `product-image-${currentCategory}-${productId}`,
-          title: `product-title-${currentCategory}-${productId}`,
+          image: `product-image-${sourceCategory}-${product.id}`,
+          title: `product-title-${sourceCategory}-${product.id}`,
         };
       }
-
-      return { image: undefined, title: undefined };
-    }
-
-    // Si estamos en una página de detalle y conocemos la fuente
-    if (pathname.startsWith('/productos/') && sourceCategory) {
+      // Si no tenemos sourceCategory, usar productos como fallback
       return {
-        image: `product-image-${sourceCategory}-${productId}`,
-        title: `product-title-${sourceCategory}-${productId}`,
+        image: `product-image-productos-${product.id}`,
+        title: `product-title-productos-${product.id}`,
       };
     }
 
-    // Por defecto, no aplicar view transitions
+    // Si estamos en una página de listado (categorías)
+    if (pathname.includes('/categoria/')) {
+      const currentCategory = getCurrentCategory();
+      if (currentCategory) {
+        return {
+          image: `product-image-${currentCategory}-${product.id}`,
+          title: `product-title-${currentCategory}-${product.id}`,
+        };
+      }
+      return { image: undefined, title: undefined };
+    }
+
     return { image: undefined, title: undefined };
   };
 

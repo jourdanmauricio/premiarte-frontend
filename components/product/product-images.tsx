@@ -10,7 +10,8 @@ type ProductImagesProps = {
 const ProductImages = ({ product }: ProductImagesProps) => {
   const [currentImage, setCurrentImage] = useState(0);
 
-  const transitionNames = useViewTransition(product.id);
+  const transitionNames = useViewTransition(product);
+
   return (
     <div className='mx-auto max-w-[400px]'>
       {product.images && product.images.length > 0 ? (
