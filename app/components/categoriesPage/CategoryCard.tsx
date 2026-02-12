@@ -1,0 +1,38 @@
+import { Category } from "@/app/shared/types";
+import Image from "next/image";
+import Link from "next/link";
+
+type CategoryCardProps = {
+  category: Category;
+};
+
+const CategoryCard = ({ category }: CategoryCardProps) => {
+  return (
+    <Link
+      href={`/productos?category=${category.slug}&page=1`}
+      className="img-appear group w-62 h-auto overflow-hidden border rounded-sm hover:cursor-pointer"
+    >
+      <div className="relative aspect-square overflow-hidden rounded-t-sm bg-background">
+        <Image
+          src={category.image?.url || "/placeholder.svg"}
+          alt={category.image?.alt || category.name}
+          width={250}
+          height={250}
+          className="object-contain w-full h-full transition-transform group-hover:scale-105"
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/80 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <p className="text-center text-sm text-white">
+            {category.description}
+          </p>
+        </div>
+      </div>
+      <div className="my-4 space-y-1 text-center">
+        <h3 className="font-medium transition-colors duration-300 group-hover:text-orange-500">
+          {category.name}
+        </h3>
+      </div>
+    </Link>
+  );
+};
+
+export { CategoryCard };
