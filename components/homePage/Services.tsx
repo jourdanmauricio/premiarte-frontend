@@ -1,4 +1,4 @@
-import Subtitle from "@/app/components/shared/Subtitle";
+import Subtitle from "@/components/shared/Subtitle";
 import { ServicesData, ServicesSettings } from "@/app/shared/types";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";

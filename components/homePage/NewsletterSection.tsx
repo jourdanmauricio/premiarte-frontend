@@ -3,10 +3,10 @@
 import { actions } from "@/actions";
 
 import { Input } from "@/components/ui/input";
-import { SubmitButton } from "@/app/components/shared/SubmitButton";
+import { SubmitButton } from "@/components/shared/SubmitButton";
 import { useActionState } from "react";
 import { type NewsletterFormState } from "@/validations/subscribe";
-import { InputFormError } from "@/app/components/shared/InputFormError";
+import { InputFormError } from "@/components/shared/InputFormError";
 
 // const newsletterSchema = z.object({
 //   name: z.string().min(1, "El nombre es requerido"),

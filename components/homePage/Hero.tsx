@@ -1,7 +1,7 @@
-import PrimaryButton from "@/app/components/shared/PrimaryButton";
+import PrimaryButton from "@/components/shared/PrimaryButton";
 import Image from "next/image";
 import { HeroSettings } from "@/app/shared/types";
-import SecondaryButton from "@/app/components/shared/SecondaryButton";
+import SecondaryButton from "@/components/shared/SecondaryButton";
 
 type HeroProps = {
   heroSettings: HeroSettings;

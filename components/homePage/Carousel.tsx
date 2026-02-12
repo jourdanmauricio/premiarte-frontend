@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { SliderSettings } from "@/app/shared/types";
-import PrimaryButton from "@/app/components/shared/PrimaryButton";
+import PrimaryButton from "@/components/shared/PrimaryButton";
 
 export const HomeCarousel = ({
   sliderSettings,

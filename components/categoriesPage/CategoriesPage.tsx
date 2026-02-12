@@ -1,4 +1,4 @@
-import { CategoryCard } from "@/app/components/categoriesPage/CategoryCard";
+import { CategoryCard } from "@/components/categoriesPage/CategoryCard";
 import { Category } from "@/app/shared/types";
 
 const apiUrl = process.env.API_URL;

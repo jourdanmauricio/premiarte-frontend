@@ -1,4 +1,4 @@
-import { ProductsPage } from "@/app/components/productsPage/ProductsPage";
+import { ProductsPage } from "@/components/productsPage/ProductsPage";
 
 const Page = async ({
   searchParams,
@@ -8,9 +8,6 @@ const Page = async ({
   const params = await searchParams;
   const currentCategory = params?.category || "";
   const currentPage = Number(params?.page) || 1;
-
-  console.log("currentCategory", currentCategory);
-  console.log("currentPage", currentPage);
 
   return <ProductsPage category={currentCategory} currentPage={currentPage} />;
 };

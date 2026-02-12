@@ -1,5 +1,5 @@
 import { Product } from "@/app/shared/types";
-import { ProductCard } from "@/app/components/productsPage/ProductCard";
+import { ProductCard } from "@/components/productsPage/ProductCard";
 
 type ProductsListProps = {
   products: Product[];

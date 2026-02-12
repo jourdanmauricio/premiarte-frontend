@@ -1,6 +1,6 @@
-import { ProductsCard } from "@/app/components/shared/ProductsCard";
-import SecondaryButton from "@/app/components/shared/SecondaryButton";
-import Subtitle from "@/app/components/shared/Subtitle";
+import { ProductsCard } from "@/components/shared/ProductsCard";
+import SecondaryButton from "@/components/shared/SecondaryButton";
+import Subtitle from "@/components/shared/Subtitle";
 import { FeaturedProductsSettings, Product } from "@/app/shared/types";
 
 type FeaturedProductsProps = {

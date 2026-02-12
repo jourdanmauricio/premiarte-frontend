@@ -1,5 +1,5 @@
-import { StarsRating } from "@/app/components/homePage/StarsRating";
-import Subtitle from "@/app/components/shared/Subtitle";
+import { StarsRating } from "@/components/homePage/StarsRating";
+import Subtitle from "@/components/shared/Subtitle";
 import { Testimonial, TestimonialsData } from "@/app/shared/types";
 import { Card, CardContent } from "@/components/ui/card";
 

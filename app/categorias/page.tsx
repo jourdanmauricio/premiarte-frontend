@@ -1,4 +1,4 @@
-import { CategoriesPage } from "@/app/components/categoriesPage/CategoriesPage";
+import { CategoriesPage } from "@/components/categoriesPage/CategoriesPage";
 
 const Page = () => {
   return <CategoriesPage />;

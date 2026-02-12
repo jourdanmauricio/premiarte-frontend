@@ -1,6 +1,6 @@
 import { FeaturedCategoriesData, FeaturedCategory } from "@/app/shared/types";
 import Subtitle from "../shared/Subtitle";
-import { CategoryCard } from "@/app/components/shared/CategoryCard";
+import { CategoryCard } from "@/components/shared/CategoryCard";
 
 type FeaturedCategoriesProps = {
   featuredCategories: FeaturedCategory[];
