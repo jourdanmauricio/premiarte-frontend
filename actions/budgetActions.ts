@@ -15,8 +15,6 @@ export const budgetAction = async (
     products: JSON.parse((formData.get("products") ?? "[]") as string),
   };
 
-  console.log("fields", fields);
-
   const validatedFields = budgetFormSchema.safeParse(fields);
 
   if (!validatedFields.success) {
