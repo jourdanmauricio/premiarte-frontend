@@ -2,6 +2,8 @@ import { navBarLinks } from "@/app/shared/consts";
 import { MobileButtonMenu } from "./MobileButtonMenu";
 import Image from "next/image";
 import Link from "next/link";
+import { CartCounter } from "@/components/shared/navBar/CartCounter";
+import { AuthSection } from "@/components/shared/navBar/AuthSection";
 
 const NavBar = () => {
   return (
@@ -27,7 +29,7 @@ const NavBar = () => {
 
         {/* Carrito y menú hamburguesa para móviles */}
         <div className="xl:hidden flex items-center space-x-4">
-          {/* <CartCounter client:idle transition:persist /> */}
+          <CartCounter />
           <MobileButtonMenu />
         </div>
 
@@ -45,12 +47,12 @@ const NavBar = () => {
               />
             </div>
           ))}
-          {/* <CartCounter client:idle transition:persist /> */}
+          <CartCounter />
         </div>
 
         {/* Sección de autenticación para escritorio  */}
         <div className="hidden xl:block">
-          {/* <AuthSection client:idle /> */}
+          <AuthSection />
         </div>
       </div>
 
@@ -75,9 +77,9 @@ const NavBar = () => {
                 </Link>
               </div>
             ))}
-            {/* <div className='px-3 py-2'>
-              <AuthSection client:idle />
-            </div> */}
+            <div className="px-3 py-2">
+              <AuthSection />
+            </div>
           </div>
         </div>
       </div>

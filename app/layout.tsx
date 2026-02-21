@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "../components/shared/navBar/NavBar";
 import { Footer } from "@/components/shared/Footer";
 import WhatsAppButton from "@/components/shared/whatsAppButton/WhatsAppButton";
+import { SessionProvider } from "@/components/providers/SessionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,14 +40,16 @@ export default function RootLayout({
             className="absolute inset-0"
             style={{
               background: `
-            radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
-            radial-gradient(circle at 75% 67%, rgba(249, 115, 22, 0.03) 0%, transparent 50%)
-          `,
+                radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 67%, rgba(249, 115, 22, 0.03) 0%, transparent 50%)
+                `,
             }}
           ></div>
         </div>
-        <NavBar />
-        <main className="m-auto">{children}</main>
+        <SessionProvider>
+          <NavBar />
+          <main className="m-auto">{children}</main>
+        </SessionProvider>
 
         <Footer />
 

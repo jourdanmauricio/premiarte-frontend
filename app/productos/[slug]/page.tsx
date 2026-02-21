@@ -1,7 +1,12 @@
-import ProductPage from "@/components/productPage/ProductPage";
+import { ProductPage } from "@/components/productPage/ProductPage";
 
-const page = () => {
-  return <ProductPage />;
+const Page = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const { slug } = await params;
+  return <ProductPage slug={slug} />;
 };
 
-export default page;
+export default Page;

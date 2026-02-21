@@ -8,14 +8,6 @@ import { useActionState } from "react";
 import { type NewsletterFormState } from "@/validations/subscribe";
 import { InputFormError } from "@/components/shared/InputFormError";
 
-// const newsletterSchema = z.object({
-//   name: z.string().min(1, "El nombre es requerido"),
-//   email: z
-//     .string()
-//     .min(1, "El correo electrónico es requerido")
-//     .email("Correo electrónico inválido"),
-// });
-
 const INITIAL_STATE: NewsletterFormState = {
   success: false,
   message: undefined,
