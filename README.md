@@ -102,6 +102,24 @@ premiarte-front/
 ## Despliegue
 
 - Build: `npm run build`
-- Arranque en producción: `npm run start` (puerto 5000 por defecto).
+- Arranque en producción: `npm run start` (puerto 6000).
 
 Para desplegar en [Vercel](https://vercel.com), configura las mismas variables de entorno en el panel del proyecto.
+
+### Docker (Coolify)
+
+El proyecto incluye un `Dockerfile` preparado para desplegar en [Coolify](https://coolify.io) (puerto **6000**).
+
+```bash
+docker build -t premiarte-front .
+docker run -p 6000:6000 --env-file .env.local premiarte-front
+```
+
+**Variables de entorno en producción (Coolify):** no uses `http://localhost:6001` ni `http://localhost:6000`. En el servidor cada servicio corre en su propio contenedor; `localhost` dentro del contenedor se refiere a ese contenedor, no al backend ni al host. Configura URLs accesibles:
+
+| Variable     | En producción (Coolify) |
+|-------------|--------------------------|
+| `API_URL`   | URL pública del backend, p. ej. `https://api.tudominio.com/api` |
+| `NEXTAUTH_URL` | URL pública de este frontend, p. ej. `https://www.tudominio.com` |
+
+Si Coolify crea una red interna entre tus 3 servicios, puedes usar el hostname interno del backend (p. ej. `http://premiarte-backend:6001/api`) solo para peticiones **server-side** desde este frontend; para el navegador y para callbacks OAuth sigue siendo necesario usar dominios públicos HTTPS.
