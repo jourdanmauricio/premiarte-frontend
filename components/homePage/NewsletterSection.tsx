@@ -1,10 +1,8 @@
 "use client";
 
-import { actions } from "@/actions";
-
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/shared/SubmitButton";
-import { useActionState } from "react";
+import { useState, useCallback } from "react";
 import { type NewsletterFormState } from "@/validations/subscribe";
 import { InputFormError } from "@/components/shared/InputFormError";
 
@@ -20,9 +18,34 @@ const INITIAL_STATE: NewsletterFormState = {
 };
 
 const NewsletterSection = () => {
-  const [formstate, formAction, isPending] = useActionState(
-    actions.subscribe.subscribeAction,
-    INITIAL_STATE,
+  const [formstate, setFormstate] = useState<NewsletterFormState>(INITIAL_STATE);
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setIsPending(true);
+      setFormstate((prev) => ({ ...prev, formError: null, zodErrors: null }));
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      try {
+        const res = await fetch("/api/subscribe", {
+          method: "POST",
+          body: formData,
+        });
+        const data: NewsletterFormState = await res.json();
+        setFormstate(data);
+      } catch {
+        setFormstate((prev) => ({
+          ...prev,
+          success: false,
+          formError: "Error al suscribirse",
+        }));
+      } finally {
+        setIsPending(false);
+      }
+    },
+    [],
   );
 
   return (
@@ -58,7 +81,11 @@ const NewsletterSection = () => {
                 </div>
               </div>
             ) : (
-              <form action={formAction} className="space-y-12" noValidate>
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-12"
+                noValidate
+              >
                 <div className="space-y-8">
                   <div className="relative">
                     <Input

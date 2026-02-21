@@ -1,8 +1,9 @@
+"use client";
+
 import { Product } from "@/app/shared/types";
 import { BudgetFormState } from "@/validations/budget";
 import { User } from "next-auth";
-import { useActionState } from "react";
-import { actions } from "@/actions";
+import { useState, useCallback } from "react";
 import { InputFormError } from "@/components/shared/InputFormError";
 import { SubmitButton } from "@/components/shared/SubmitButton";
 
@@ -29,12 +30,40 @@ const inputBaseClass =
   "w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm bg-transparent text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-slate-400 transition-colors [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[-webkit-box-shadow:0_0_0_1000px_rgb(26_27_34)_inset] [&:-webkit-autofill:hover]:[-webkit-text-fill-color:white] [&:-webkit-autofill:hover]:[-webkit-box-shadow:0_0_0_1000px_rgb(26_27_34)_inset] [&:-webkit-autofill:focus]:[-webkit-text-fill-color:white] [&:-webkit-autofill:focus]:[-webkit-box-shadow:0_0_0_1000px_rgb(26_27_34)_inset]";
 
 const CartForm = ({ user, products }: CartFormProps) => {
-  const [formstate, formAction, isPending] = useActionState(
-    actions.budget.budgetAction,
-    INITIAL_STATE,
+  const [formstate, setFormstate] = useState<BudgetFormState>(INITIAL_STATE);
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setIsPending(true);
+      setFormstate((prev) => ({ ...prev, formError: null, zodErrors: null }));
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      try {
+        const res = await fetch("/api/budget", { method: "POST", body: formData });
+        const data: BudgetFormState = await res.json();
+        setFormstate(data);
+      } catch {
+        setFormstate((prev) => ({
+          ...prev,
+          success: false,
+          formError: "Error al solicitar presupuesto",
+        }));
+      } finally {
+        setIsPending(false);
+      }
+    },
+    [],
   );
+
   return (
-    <form id="budget-form" className="space-y-8" noValidate action={formAction}>
+    <form
+      id="budget-form"
+      className="space-y-8"
+      noValidate
+      onSubmit={handleSubmit}
+    >
       <input type="hidden" name="products" value={JSON.stringify(products)} />
       <div className="relative">
         <label
