@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { CartForm } from "@/components/cartPage/CartForm";
 import { Card } from "@/components/ui/card";
 import { useCartStore } from "@/store/useCartStore";
@@ -10,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CartPage = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
   const products = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
@@ -50,7 +52,9 @@ const CartPage = () => {
       </p>
       <div className="flex flex-col lg:flex-row gap-12 my-12">
         {/* <!-- Message sent successfully --> */}
-        <Card className="p-6 text-slate-900 h-fit hidden w-full success-message">
+        <Card
+          className={`p-6 text-slate-900 h-fit w-full success-message ${showSuccess ? "" : "hidden"}`}
+        >
           <div className="mb-6 rounded-lg p-4 text-orange-500">
             <h3 className="mb-2 text-lg font-semibold">
               Presupuesto enviado exitosamente!
@@ -155,7 +159,9 @@ const CartPage = () => {
         </Card>
 
         {/* <!-- presupuesto --> */}
-        <Card className="p-6 h-fit w-full budget-form">
+        <Card
+          className={`p-6 h-fit w-full budget-form ${showSuccess ? "hidden" : ""}`}
+        >
           <p className="mb-4">
             Por favor, complete los siguientes datos para solicitar su
             presupuesto.
@@ -164,6 +170,7 @@ const CartPage = () => {
           <CartForm
             user={user as User}
             products={products as unknown as Product[]}
+            onSuccess={() => setShowSuccess(true)}
           />
         </Card>
       </div>

@@ -4,12 +4,14 @@ import { Product } from "@/app/shared/types";
 import { BudgetFormState } from "@/validations/budget";
 import { User } from "next-auth";
 import { useState, useCallback } from "react";
+import { useCartStore } from "@/store/useCartStore";
 import { InputFormError } from "@/components/shared/InputFormError";
 import { SubmitButton } from "@/components/shared/SubmitButton";
 
 type CartFormProps = {
   user: User;
   products: Product[];
+  onSuccess?: () => void;
 };
 
 const INITIAL_STATE: BudgetFormState = {
@@ -29,9 +31,10 @@ const INITIAL_STATE: BudgetFormState = {
 const inputBaseClass =
   "w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm bg-transparent text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-slate-400 transition-colors [&:-webkit-autofill]:[-webkit-text-fill-color:white] [&:-webkit-autofill]:[-webkit-box-shadow:0_0_0_1000px_rgb(26_27_34)_inset] [&:-webkit-autofill:hover]:[-webkit-text-fill-color:white] [&:-webkit-autofill:hover]:[-webkit-box-shadow:0_0_0_1000px_rgb(26_27_34)_inset] [&:-webkit-autofill:focus]:[-webkit-text-fill-color:white] [&:-webkit-autofill:focus]:[-webkit-box-shadow:0_0_0_1000px_rgb(26_27_34)_inset]";
 
-const CartForm = ({ user, products }: CartFormProps) => {
+const CartForm = ({ user, products, onSuccess }: CartFormProps) => {
   const [formstate, setFormstate] = useState<BudgetFormState>(INITIAL_STATE);
   const [isPending, setIsPending] = useState(false);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,6 +47,10 @@ const CartForm = ({ user, products }: CartFormProps) => {
         const res = await fetch("/api/budget", { method: "POST", body: formData });
         const data: BudgetFormState = await res.json();
         setFormstate(data);
+        if (data.success) {
+          clearCart();
+          onSuccess?.();
+        }
       } catch {
         setFormstate((prev) => ({
           ...prev,
@@ -54,7 +61,7 @@ const CartForm = ({ user, products }: CartFormProps) => {
         setIsPending(false);
       }
     },
-    [],
+    [clearCart, onSuccess],
   );
 
   return (
