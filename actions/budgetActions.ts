@@ -40,7 +40,7 @@ export const budgetAction = async (
   };
 
   try {
-    const response = await fetch(`${process.env.API_URL}/budget`, {
+    const response = await fetch(`${process.env.API_URL}/budgets`, {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
