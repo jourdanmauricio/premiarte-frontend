@@ -20,6 +20,7 @@ const siteDescription =
   "Premiarte, Trofeos, Venta y Fabricacion de Trofeos, Medallas, Reconocimientos, Placas Grabadas, Copas, Promocionales, Venta, Fabrica y Diseño de trofeos, La Plata";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.premiarte.com.ar"),
   title: "Premiarte",
   description: siteDescription,
   keywords: [
