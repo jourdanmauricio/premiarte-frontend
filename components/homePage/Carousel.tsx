@@ -34,7 +34,7 @@ export const HomeCarousel = ({
       ]}
     >
       <CarouselContent className="">
-        {sliderSettings.map((sliderSetting) => (
+        {sliderSettings.map((sliderSetting, index) => (
           <CarouselItem key={sliderSetting.image}>
             <div className="p-1">
               <Card className="relative overflow-hidden rounded-none border-0 p-0 m-0 bg-transparent">
@@ -43,9 +43,9 @@ export const HomeCarousel = ({
                     <Image
                       src={sliderSetting.imageDet?.url || ""}
                       alt={sliderSetting.imageDet?.alt || "Slide Image"}
-                      // fill
                       className="object-cover object-center transition-transform duration-700 hover:scale-105 h-full w-full"
-                      // priority
+                      priority={index === 0}
+                      fetchPriority={index === 0 ? "high" : "auto"}
                       width={1000}
                       height={1000}
                     />
