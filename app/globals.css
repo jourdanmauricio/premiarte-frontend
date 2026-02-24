@@ -162,6 +162,22 @@
   hover:bg-orange-500/80 transition-all duration-300 hover:cursor-pointer text-white;
 }
 
+/* Carousel slide-in: solo usa transform + opacity (GPU-composited, sin filter) */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.carousel-slide-in {
+  animation: slide-in-left 1s ease-out both;
+}
+
 /* View Transitions */
 @keyframes fade-in {
   from { opacity: 0; }

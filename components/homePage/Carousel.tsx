@@ -54,7 +54,7 @@ export const HomeCarousel = ({
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/20"></div>
                   </div>
 
-                  <div className="relative z-10 flex flex-col gap-6 p-8 text-white duration-1000 animate-in slide-in-from-left-8 md:pl-40 lg:pl-40">
+                  <div className="relative z-10 flex flex-col gap-6 p-8 text-white carousel-slide-in md:pl-40 lg:pl-40">
                     <div className="inline-flex w-fit">
                       {sliderSetting.recommended ? (
                         <span className="rounded-full bg-linear-to-r from-red-500 to-orange-500 px-4 py-1.5 text-sm font-medium text-white shadow-lg">
