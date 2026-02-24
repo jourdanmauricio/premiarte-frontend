@@ -51,7 +51,7 @@ const NavBar = () => {
         </div>
 
         {/* Sección de autenticación para escritorio  */}
-        <div className="hidden xl:block">
+        <div className="hidden xl:flex justify-end w-[240px]">
           <AuthSection />
         </div>
       </div>

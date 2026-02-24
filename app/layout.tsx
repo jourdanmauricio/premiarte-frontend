@@ -99,10 +99,6 @@ export default function RootLayout({
         <Footer />
 
         <WhatsAppButton />
-
-        {/* <!-- Toaster para notificaciones solo en páginas públicas --> */}
-        {/* {!isDashboard && <ToasterProvider client:load />} */}
-        {/* <!-- <ToasterProvider client:load /> --> */}
       </body>
     </html>
   );

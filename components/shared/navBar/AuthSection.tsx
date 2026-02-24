@@ -6,7 +6,12 @@ export function AuthSection() {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <span className="text-gray-400 text-sm">...</span>;
+    return (
+      <div className="flex items-center gap-3 animate-pulse">
+        <div className="h-4 w-20 rounded bg-gray-700" />
+        <div className="h-4 w-24 rounded bg-gray-700/60" />
+      </div>
+    );
   }
 
   if (session?.user) {
