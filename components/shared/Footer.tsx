@@ -4,47 +4,50 @@ import { Link } from "next-view-transitions";
 
 const apiUrl = process.env.API_URL;
 
-/* Settings data */
-const data = await fetch(`${apiUrl}/settings/page/home`, {
-  next: {
-    tags: ["footer-settings"],
-  },
-});
-const homeSettings = await data.json();
+async function getFooterData() {
+  try {
+    const data = await fetch(`${apiUrl}/settings/page/home`, {
+      next: { tags: ["footer-settings"] },
+    });
+    const homeSettings = await data.json();
+    const footer = homeSettings.footer;
 
-const footer = homeSettings.footer;
+    const socialLinks = await Promise.all(
+      footer.socialLinks.map(async (socialLink: SocialLink) => {
+        if (socialLink.image) {
+          const imageData = await fetch(
+            `${apiUrl}/images/${socialLink.image}`,
+            { next: { tags: ["social-links"] } },
+          );
+          const imageDataJson = await imageData.json();
+          if (imageDataJson) {
+            return {
+              ...socialLink,
+              imageDet: { url: imageDataJson.url, alt: imageDataJson.alt },
+            };
+          }
+        }
+        return null;
+      }),
+    );
 
-const socialLinks = await Promise.all(
-  footer.socialLinks.map(async (socialLink: SocialLink) => {
-    if (socialLink.image) {
-      const imageData = await fetch(`${apiUrl}/images/${socialLink.image}`, {
-        next: { tags: ["social-links"] },
-      });
-      const imageDataJson = await imageData.json();
-      if (imageDataJson) {
-        return {
-          ...socialLink,
-          imageDet: {
-            url: imageDataJson.url,
-            alt: imageDataJson.alt,
-          },
-        };
-      }
-    }
+    const logoImageData = await fetch(`${apiUrl}/images/${footer.logoId}`, {
+      next: { tags: ["footer-logo"] },
+    });
+    const logoImageDataJson = await logoImageData.json();
+    const logoImage = { url: logoImageDataJson.url, alt: logoImageDataJson.alt };
+
+    return { footer, socialLinks, logoImage };
+  } catch {
     return null;
-  }),
-);
+  }
+}
 
-const logoImageData = await fetch(`${apiUrl}/images/${footer.logoId}`, {
-  next: { tags: ["footer-logo"] },
-});
-const logoImageDataJson = await logoImageData.json();
-const logoImage = {
-  url: logoImageDataJson.url,
-  alt: logoImageDataJson.alt,
-};
+const Footer = async () => {
+  const footerData = await getFooterData();
+  if (!footerData) return null;
 
-const Footer = () => {
+  const { footer, socialLinks, logoImage } = footerData;
   return (
     <footer className="border-t text-muted-foreground">
       <div className="container px-4 py-8 md:px-6 md:pt-20 mx-auto">
