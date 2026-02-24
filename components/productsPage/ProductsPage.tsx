@@ -1,9 +1,10 @@
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { Category as CategoryType } from "@/app/shared/types";
 import { ProductsList } from "@/components/productsPage/ProductsList";
 import { ProductsSidebar } from "@/components/productsPage/ProductsSidebar";
 import { ProductsSkeleton } from "@/components/productsPage/ProductsSkeleton";
 import { CustomPagination } from "@/components/shared/CustomPagination";
-
-import { Suspense } from "react";
 
 const apiUrl = process.env.API_URL;
 const ITEMS_PER_PAGE = 9;
@@ -29,6 +30,12 @@ const ProductsContent = async ({
   const productsDataJson = await productsData.json();
   const products = productsDataJson.data;
   const totalProducts = productsDataJson.total;
+  const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+
+  if (currentPage > 1 && totalPages > 0 && currentPage > totalPages) {
+    const url = category ? `/productos?category=${category}` : "/productos";
+    redirect(url);
+  }
 
   return (
     <>
@@ -59,6 +66,15 @@ const ProductsPage = async ({
     },
   });
   const categories = await categoriesData.json();
+
+  if (currentCategory) {
+    const categoryExists = categories.some(
+      (cat: CategoryType) => cat.slug === currentCategory,
+    );
+    if (!categoryExists) {
+      redirect("/productos");
+    }
+  }
 
   return (
     <div className="container mx-auto max-w-[1200px]">

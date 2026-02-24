@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { Category as CategoryType } from "@/app/shared/types";
 import { ProductImageGallery } from "@/components/productPage/ProductImageGallery";
 import { AddToCartControls } from "@/components/productPage/AddToCartControls";
@@ -10,6 +11,11 @@ const ProductPage = async ({ slug }: { slug: string }) => {
       tags: [`product-${slug}`],
     },
   });
+
+  if (!product.ok) {
+    notFound();
+  }
+
   const productDetails = await product.json();
 
   return (
