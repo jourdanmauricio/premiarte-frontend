@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { SliderSettings } from "@/app/shared/types";
 import PrimaryButton from "@/components/shared/PrimaryButton";

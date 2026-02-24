@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useCartStore } from "@/store/useCartStore";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 type AddToCartControlsProps = {
   product: {

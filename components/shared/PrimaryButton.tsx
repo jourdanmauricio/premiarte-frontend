@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Link } from 'next-view-transitions';
 
 interface PrimaryButtonProps {
   label: string;
@@ -16,10 +17,10 @@ const PrimaryButton = ({ label, href, className }: PrimaryButtonProps) => {
       )}
       asChild
     >
-      <a href={href || '/productos'}>
+      <Link href={href || '/productos'}>
         <span className='relative z-10'>{label || 'Ver Productos'}</span>
         <div className='absolute inset-0 translate-x-[-100%] bg-white/20 transition-transform duration-500 group-hover:translate-x-0'></div>
-      </a>
+      </Link>
     </Button>
   );
 };

@@ -8,7 +8,7 @@ import { Product } from "@/app/shared/types";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const CartPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -87,12 +87,12 @@ const CartPage = () => {
                   height={112}
                 />
                 <div className="flex flex-col gap-2 justify-between items-start w-full text-white">
-                  <a
+                  <Link
                     href={`/productos/${product.slug}`}
                     className="hover: underline"
                   >
                     {product.name}
-                  </a>
+                  </Link>
                   <div className="flex gap-2 items-center justify-between w-full">
                     <h3 className="">Cantidad</h3>
                     <div className="flex items-center gap-4">

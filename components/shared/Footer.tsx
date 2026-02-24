@@ -1,6 +1,6 @@
 import { SocialLink } from "@/app/shared/types";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const apiUrl = process.env.API_URL;
 

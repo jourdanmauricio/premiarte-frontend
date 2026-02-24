@@ -1,6 +1,6 @@
 import { Category } from "@/app/shared/types";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 type CategoryCardProps = {
   category: Category;

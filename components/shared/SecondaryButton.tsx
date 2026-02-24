@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "next-view-transitions";
 
 interface SecondaryButtonProps {
   label: string;
@@ -17,7 +18,7 @@ const SecondaryButton = ({ label, href, className }: SecondaryButtonProps) => {
       )}
       asChild
     >
-      <a href={href || "/contacto"}>{label || "Más Información"}</a>
+      <Link href={href || "/contacto"}>{label || "Más Información"}</Link>
     </Button>
   );
 };

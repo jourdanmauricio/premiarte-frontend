@@ -1,13 +1,13 @@
 import { navBarLinks } from "@/app/shared/consts";
 import { MobileButtonMenu } from "./MobileButtonMenu";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { CartCounter } from "@/components/shared/navBar/CartCounter";
 import { AuthSection } from "@/components/shared/navBar/AuthSection";
 
 const NavBar = () => {
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur-sm" style={{ viewTransitionName: "navbar" }}>
       <div className="container flex justify-between items-center p-4 mx-auto">
         {/* Logo y nombre del sitio  */}
         <div className="text-gray-300">
@@ -37,9 +37,9 @@ const NavBar = () => {
         <div className="hidden xl:flex items-center justify-center text-gray-300">
           {navBarLinks.map((link) => (
             <div key={link.name}>
-              <a href={link.href} className="mx-1.5 sm:mx-6">
+              <Link href={link.href} className="mx-1.5 sm:mx-6">
                 {link.name}
-              </a>
+              </Link>
               <div
                 className="border-b-2 border-transparent mx-4"
                 data-href={link.href}

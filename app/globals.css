@@ -171,19 +171,15 @@
   to { opacity: 0; }
 }
 
-@keyframes slide-from-bottom {
-  from { transform: translateY(20px); }
-}
-
-@keyframes slide-to-top {
-  to { transform: translateY(-20px); }
-}
-
 ::view-transition-old(root) {
-  animation: 250ms ease-out both fade-out, 250ms ease-out both slide-to-top;
+  animation: 200ms ease-out both fade-out;
 }
 
 ::view-transition-new(root) {
-  animation: 250ms ease-in both fade-in, 250ms ease-in both slide-from-bottom;
+  animation: 200ms ease-in both fade-in;
+}
+
+::view-transition-group(navbar) {
+  animation: none;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Category } from "@/app/shared/types";
 import { useSearchParams } from "next/navigation";
 
