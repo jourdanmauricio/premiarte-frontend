@@ -34,24 +34,14 @@ const Hero = ({ heroSettings }: HeroProps) => {
 
           {/* Botones de acción mejorados */}
           <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row lg:justify-end mt-8">
-            {/* <!-- <button
-          class='rounded-lg bg-gradient-to-r from-red-600 to-orange-600 px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-red-700 hover:to-orange-700 hover:shadow-2xl'
-        >
-          <a href={hero.buttonLink}>{hero.buttonText}</a>
-        </button> --> */}
             <PrimaryButton
               label={heroSettings.buttonText || "Ver Productos"}
               href={heroSettings.buttonLink || "/productos"}
               className="px-8 py-6 text-lg font-semibold text-white min-w-40"
             />
-            {/* <!-- <button
-          className='rounded-lg border-2 border-orange-600 px-8 py-4 text-lg font-semibold text-orange-600 transition-all duration-300 hover:scale-105 hover:bg-orange-600 hover:text-white hover:shadow-lg'
-        >
-          Ofertas Especiales
-        </button> --> */}
             <SecondaryButton
-              label={heroSettings.buttonText || "Más Información"}
-              href={heroSettings.buttonLink || "/contacto"}
+              label="Más Información"
+              href="/contacto"
               className="px-8 py-6 text-lg font-semibold text-white min-w-40"
             />
           </div>
