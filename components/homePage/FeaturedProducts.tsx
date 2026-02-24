@@ -80,7 +80,7 @@ const FeaturedProducts = ({
             <div className="text-center">
               <SecondaryButton
                 label={featuredProducts.buttonText || "Ver Productos"}
-                href={featuredProducts.buttonLink || "/categoria/productos"}
+                href={featuredProducts.buttonLink || "/productos"}
                 className="px-8 py-6 text-lg font-semibold text-white min-w-40"
               />
             </div>

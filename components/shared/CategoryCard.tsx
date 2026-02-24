@@ -8,7 +8,7 @@ type CategoryCardProps = {
 const CategoryCard = ({ category }: CategoryCardProps) => {
   return (
     <a
-      href={`/categoria/${category.slug}`}
+      href={`/productos?category=${category.slug}`}
       className="img-appear group relative w-64 overflow-hidden rounded-sm bg-background shadow-md transition-all hover:shadow-lg"
     >
       <div className="relative aspect-square overflow-hidden rounded-sm border">
