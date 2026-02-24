@@ -162,3 +162,28 @@
   hover:bg-orange-500/80 transition-all duration-300 hover:cursor-pointer text-white;
 }
 
+/* View Transitions */
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes slide-from-bottom {
+  from { transform: translateY(20px); }
+}
+
+@keyframes slide-to-top {
+  to { transform: translateY(-20px); }
+}
+
+::view-transition-old(root) {
+  animation: 250ms ease-out both fade-out, 250ms ease-out both slide-to-top;
+}
+
+::view-transition-new(root) {
+  animation: 250ms ease-in both fade-in, 250ms ease-in both slide-from-bottom;
+}
+
