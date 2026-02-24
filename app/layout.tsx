@@ -75,10 +75,6 @@ export default function RootLayout({
   return (
     <ViewTransitions>
     <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
