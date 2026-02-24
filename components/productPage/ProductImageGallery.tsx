@@ -6,9 +6,10 @@ import { useState } from "react";
 
 type ProductImageGalleryProps = {
   images: ImageType[];
+  slug: string;
 };
 
-const ProductImageGallery = ({ images }: ProductImageGalleryProps) => {
+const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   if (!images?.length) {
@@ -30,6 +31,7 @@ const ProductImageGallery = ({ images }: ProductImageGalleryProps) => {
         width={400}
         height={400}
         className="object-contain mx-auto object-center w-[400px] h-[400px]"
+        style={selectedIndex === 0 ? { viewTransitionName: `product-image-${slug}` } : undefined}
       />
       <div className="flex gap-2 mt-4 max-w-[400px] mx-auto">
         {images.map((image: ImageType, index: number) => (

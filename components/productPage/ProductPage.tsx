@@ -21,10 +21,13 @@ const ProductPage = async ({ slug }: { slug: string }) => {
   return (
     <div className="mx-auto max-w-[1200px] my-20">
       <div className="flex flex-col lg:flex-row gap-12 w-full">
-        <ProductImageGallery images={productDetails.images ?? []} />
+        <ProductImageGallery images={productDetails.images ?? []} slug={slug} />
 
         <section className="w-full lg:w-1/2 px-4 flex flex-col justify-between gap-8">
-          <h2 className="text-2xl font-semibold text-orange-500">
+          <h2
+            className="text-2xl font-semibold text-orange-500"
+            style={{ viewTransitionName: `product-title-${slug}` }}
+          >
             {productDetails.name} - {productDetails.sku}
           </h2>
 

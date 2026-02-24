@@ -1,4 +1,5 @@
 import { Category, Product } from "@/app/shared/types";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
 
 interface ProductCardProps {
@@ -7,7 +8,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <a
+    <Link
       href={`/productos/${product.slug}`}
       className="mx-auto shadow-xl transition-all duration-300 hover:drop-shadow-3xl hover:shadow-orange-200/10"
     >
@@ -18,6 +19,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="object-contain object-center h-72 w-72"
           width={288}
           height={288}
+          style={{ viewTransitionName: `product-image-${product.slug}` }}
         />
 
         <div className="py-4">
@@ -30,10 +32,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
               ))}
           </div>
 
-          <h4 className="text-base font-medium mt-4 px-2">{product.name}</h4>
+          <h4
+            className="text-base font-medium mt-4 px-2"
+            style={{ viewTransitionName: `product-title-${product.slug}` }}
+          >
+            {product.name}
+          </h4>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
