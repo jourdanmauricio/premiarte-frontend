@@ -1,7 +1,8 @@
-const MobileButtonMenu = () => {
+const MobileButtonMenu = ({ onClick }: { onClick: () => void }) => {
   return (
-    <label
-      htmlFor="menu-toggle"
+    <button
+      type="button"
+      onClick={onClick}
       className="cursor-pointer text-gray-300 hover:text-white focus-within:text-white ml-8"
       aria-label="Abrir menú"
     >
@@ -19,7 +20,7 @@ const MobileButtonMenu = () => {
           d="M4 6h16M4 12h16M4 18h16"
         />
       </svg>
-    </label>
+    </button>
   );
 };
 

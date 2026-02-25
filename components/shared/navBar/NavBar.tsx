@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { navBarLinks } from "@/app/shared/consts";
 import { MobileButtonMenu } from "./MobileButtonMenu";
 import Image from "next/image";
@@ -24,79 +25,99 @@ function getActivePath(currentPath: string): string {
 const NavBar = () => {
   const pathname = usePathname();
   const activePath = getActivePath(pathname);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur-sm" style={{ viewTransitionName: "navbar" }}>
-      <div className="container flex justify-between items-center p-4 mx-auto">
-        {/* Logo y nombre del sitio  */}
-        <div className="text-gray-300">
-          <div className="flex items-center justify-center">
-            <Image
-              src={
-                "https://res.cloudinary.com/dn7npxeof/image/upload/v1758745993/premiarte/zwk5kvupzxwgna5s8uxx.png"
-              }
-              alt={"Logo Premiarte"}
-              className="w-10 h-10"
-              width={40}
-              height={40}
+    <>
+      <nav
+        className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur-sm"
+        style={{ viewTransitionName: "navbar" }}
+      >
+        <div className="container flex justify-between items-center p-4 mx-auto">
+          {/* Logo y nombre del sitio  */}
+          <div className="text-gray-300">
+            <div className="flex items-center justify-center">
+              <Image
+                src={
+                  "https://res.cloudinary.com/dn7npxeof/image/upload/v1758745993/premiarte/zwk5kvupzxwgna5s8uxx.png"
+                }
+                alt={"Logo Premiarte"}
+                className="w-10 h-10"
+                width={40}
+                height={40}
+              />
+              <Link href="/" className="text-2xl font-bold">
+                Premiarte
+              </Link>
+            </div>
+          </div>
+
+          {/* Carrito y menú hamburguesa para móviles */}
+          <div className="xl:hidden flex items-center space-x-4">
+            <CartCounter />
+            <MobileButtonMenu
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             />
-            <Link href="/" className="text-2xl font-bold">
-              Premiarte
-            </Link>
+          </div>
+
+          {/* Menú de escritorio  */}
+          <div className="hidden xl:flex items-center justify-center text-gray-300">
+            {navBarLinks.map((link) => {
+              const isActive = activePath === link.href;
+              return (
+                <div key={link.name}>
+                  <Link href={link.href} className="mx-1.5 sm:mx-6">
+                    {link.name}
+                  </Link>
+                  <div
+                    className={`border-b-2 mx-4 ${isActive ? "border-orange-500" : "border-transparent"}`}
+                    style={
+                      isActive ? { viewTransitionName: "menu-line" } : undefined
+                    }
+                  />
+                </div>
+              );
+            })}
+            <CartCounter />
+          </div>
+
+          {/* Sección de autenticación para escritorio  */}
+          <div className="hidden xl:flex justify-end w-[240px]">
+            <AuthSection />
           </div>
         </div>
+      </nav>
 
-        {/* Carrito y menú hamburguesa para móviles */}
-        <div className="xl:hidden flex items-center space-x-4">
-          <CartCounter />
-          <MobileButtonMenu />
-        </div>
-
-        {/* Menú de escritorio  */}
-        <div className="hidden xl:flex items-center justify-center text-gray-300">
-          {navBarLinks.map((link) => {
-            const isActive = activePath === link.href;
-            return (
-              <div key={link.name}>
-                <Link href={link.href} className="mx-1.5 sm:mx-6">
-                  {link.name}
-                </Link>
-                <div
-                  className={`border-b-2 mx-4 ${isActive ? "border-orange-500" : "border-transparent"}`}
-                  style={isActive ? { viewTransitionName: "menu-line" } : undefined}
-                />
-              </div>
-            );
-          })}
-          <CartCounter />
-        </div>
-
-        {/* Sección de autenticación para escritorio  */}
-        <div className="hidden xl:flex justify-end w-[240px]">
-          <AuthSection />
-        </div>
-      </div>
-
-      {/* Menú móvil desplegable (checkbox + label, sin JS) */}
-      <div className="xl:hidden">
-        <input
-          id="menu-toggle"
-          type="checkbox"
-          className="peer sr-only"
+      {/* Menú móvil overlay - fuera del nav para evitar problemas de stacking context */}
+      <div
+        className={`xl:hidden fixed inset-0 top-16 z-60 transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen
+            ? "opacity-100 visible"
+            : "opacity-0 invisible"
+        }`}
+      >
+        <div
+          className="absolute inset-0 bg-background/90 backdrop-blur-xl"
+          onClick={() => setIsMobileMenuOpen(false)}
           aria-hidden="true"
         />
-        <div className="hidden peer-checked:block bg-background/95 backdrop-blur-sm border-t">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div
+          className={`relative px-4 py-4 pointer-events-none transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? "translate-y-0" : "-translate-y-4"
+          }`}
+        >
+          <div className="space-y-1 pointer-events-auto">
             {navBarLinks.map((link) => {
               const isActive = activePath === link.href;
               return (
                 <div key={link.name}>
                   <Link
                     href={link.href as string}
-                    className={`block px-3 py-2 rounded-md transition-colors ${
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-md border-l-2 transition-all duration-200 ${
                       isActive
-                        ? "bg-orange-500 text-white"
-                        : "text-gray-300 hover:text-white hover:bg-gray-700"
+                        ? "border-orange-500 bg-orange-500/10 text-orange-400 font-medium"
+                        : "border-transparent text-gray-300 hover:border-orange-500/50 hover:text-white hover:bg-white/5"
                     }`}
                   >
                     {link.name}
@@ -110,7 +131,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 
