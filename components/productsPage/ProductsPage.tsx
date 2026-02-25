@@ -77,10 +77,10 @@ const ProductsPage = async ({
   }
 
   return (
-    <div className="container mx-auto max-w-[1200px]">
+    <div className="container mx-auto max-w-[1200px] px-4">
       <div className="space-y-6">
         <div className="space-y-4">
-          <div className="flex gap-4 md:flex-row">
+          <div className="flex flex-col gap-4 md:flex-row">
             <ProductsSidebar categories={categories} />
 
             <main className="w-full mb-8">

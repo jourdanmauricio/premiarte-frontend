@@ -125,6 +125,14 @@
   }
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .card-title {
   @apply text-xl font-semibold text-gray-900;
 }
