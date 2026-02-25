@@ -1,11 +1,30 @@
+"use client";
+
 import { navBarLinks } from "@/app/shared/consts";
 import { MobileButtonMenu } from "./MobileButtonMenu";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { CartCounter } from "@/components/shared/navBar/CartCounter";
 import { AuthSection } from "@/components/shared/navBar/AuthSection";
+import { usePathname } from "next/navigation";
+
+function getActivePath(currentPath: string): string {
+  // Si la ruta comienza con /categoria/ pero no es /categorias,
+  // activar el link de productos
+  if (currentPath.startsWith("/categoria/") && currentPath !== "/categorias") {
+    return "/productos";
+  }
+  // Si estamos en una página de detalle de producto, activar el link de productos
+  if (currentPath.startsWith("/productos/")) {
+    return "/productos";
+  }
+  return currentPath;
+}
 
 const NavBar = () => {
+  const pathname = usePathname();
+  const activePath = getActivePath(pathname);
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/70 backdrop-blur-sm" style={{ viewTransitionName: "navbar" }}>
       <div className="container flex justify-between items-center p-4 mx-auto">
@@ -35,18 +54,20 @@ const NavBar = () => {
 
         {/* Menú de escritorio  */}
         <div className="hidden xl:flex items-center justify-center text-gray-300">
-          {navBarLinks.map((link) => (
-            <div key={link.name}>
-              <Link href={link.href} className="mx-1.5 sm:mx-6">
-                {link.name}
-              </Link>
-              <div
-                className="border-b-2 border-transparent mx-4"
-                data-href={link.href}
-                id={`menu-line-${link.href.replace("/", "home")}`}
-              />
-            </div>
-          ))}
+          {navBarLinks.map((link) => {
+            const isActive = activePath === link.href;
+            return (
+              <div key={link.name}>
+                <Link href={link.href} className="mx-1.5 sm:mx-6">
+                  {link.name}
+                </Link>
+                <div
+                  className={`border-b-2 mx-4 ${isActive ? "border-orange-500" : "border-transparent"}`}
+                  style={isActive ? { viewTransitionName: "menu-line" } : undefined}
+                />
+              </div>
+            );
+          })}
           <CartCounter />
         </div>
 
@@ -66,17 +87,23 @@ const NavBar = () => {
         />
         <div className="hidden peer-checked:block bg-background/95 backdrop-blur-sm border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            {navBarLinks.map((link) => (
-              <div key={link.name}>
-                <Link
-                  href={link.href as string}
-                  className="block px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
-                  data-mobile-href={link.href}
-                >
-                  {link.name}
-                </Link>
-              </div>
-            ))}
+            {navBarLinks.map((link) => {
+              const isActive = activePath === link.href;
+              return (
+                <div key={link.name}>
+                  <Link
+                    href={link.href as string}
+                    className={`block px-3 py-2 rounded-md transition-colors ${
+                      isActive
+                        ? "bg-orange-500 text-white"
+                        : "text-gray-300 hover:text-white hover:bg-gray-700"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </div>
+              );
+            })}
             <div className="px-3 py-2">
               <AuthSection />
             </div>
