@@ -11,7 +11,7 @@ export const budgetFormSchema = z.object({
       "Correo electrónico inválido",
     ),
   phone: z.string().min(1, "El teléfono es requerido"),
-  message: z.string().min(1, "El mensaje es requerido"),
+  message: z.string().optional().default(""),
   products: z.array(
     z.object({
       id: z.coerce.number(),

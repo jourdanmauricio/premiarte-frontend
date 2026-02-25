@@ -9,7 +9,10 @@ export const CartCounter = () => {
   const router = useRouter();
 
   return (
-    <div className="relative" onClick={() => router.push("/presupuesto")}>
+    <div
+      className="relative hover:cursor-pointer mb-3 ml-4"
+      onClick={() => router.push("/presupuesto")}
+    >
       <ShoppingCart className="h-6 w-6" />
       {totalItems > 0 && (
         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
