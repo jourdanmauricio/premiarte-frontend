@@ -6,7 +6,8 @@ import { Category } from "@/app/shared/types";
 import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
-const linkBase = "group flex cursor-pointer items-center space-x-2 transition-colors hover:text-primary";
+const linkBase =
+  "group flex cursor-pointer items-center space-x-2 transition-colors hover:text-primary";
 const linkActive = "font-bold text-orange-500";
 const linkInactive = "font-normal text-muted-foreground";
 
@@ -16,7 +17,8 @@ const ProductsSidebar = ({ categories }: { categories: Category[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const activeCategoryName = categorySlug
-    ? categories.find((c) => c.slug === categorySlug)?.name ?? "Todos los productos"
+    ? (categories.find((c) => c.slug === categorySlug)?.name ??
+      "Todos los productos")
     : "Todos los productos";
 
   const categoryLinks = (onNavigate?: () => void) => (
@@ -24,7 +26,7 @@ const ProductsSidebar = ({ categories }: { categories: Category[] }) => {
       <Link
         href="/productos?page=1"
         onClick={onNavigate}
-        className={`${linkBase} ${!categorySlug ? linkActive : linkInactive}`}
+        className={`mt-4 ${linkBase} ${!categorySlug ? linkActive : linkInactive}`}
       >
         Todos los productos
       </Link>
