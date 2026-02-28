@@ -11,6 +11,16 @@ type ProductImageGalleryProps = {
 
 const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePos({ x, y });
+  };
+
+  const handleMouseLeave = () => setMousePos(null);
 
   if (!images?.length) {
     return (
@@ -24,15 +34,25 @@ const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
 
   return (
     <div className="w-full lg:w-1/2 mx-auto px-4">
-      <Image
-        id="main-image"
-        src={selectedImage.url || "/placeholder.svg"}
-        alt={selectedImage.alt || "Product image"}
-        width={400}
-        height={400}
-        className="object-contain mx-auto object-center w-[400px] h-[400px]"
-        style={selectedIndex === 0 ? { viewTransitionName: `product-image-${slug}` } : undefined}
-      />
+      <div
+        className="relative overflow-hidden w-[400px] h-[400px] mx-auto rounded cursor-zoom-in"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Image
+          id="main-image"
+          src={selectedImage.url || "/placeholder.svg"}
+          alt={selectedImage.alt || "Product image"}
+          width={400}
+          height={400}
+          className="object-contain object-center w-[400px] h-[400px] transition-transform duration-200 ease-out"
+          style={{
+            transformOrigin: mousePos ? `${mousePos.x}% ${mousePos.y}%` : "center center",
+            transform: mousePos ? "scale(1.5)" : "scale(1)",
+            ...(selectedIndex === 0 ? { viewTransitionName: `product-image-${slug}` } : {}),
+          }}
+        />
+      </div>
       <div className="flex gap-2 mt-4 max-w-[400px] mx-auto">
         {images.map((image: ImageType, index: number) => (
           <button
