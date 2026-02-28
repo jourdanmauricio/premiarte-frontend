@@ -42,17 +42,23 @@ const ProductPage = async ({ slug }: { slug: string }) => {
           <div className="flex flex-col gap-2">
             <h3 className="font-semibold">Categorías</h3>
             <p className="ml-4 text-muted-foreground flex flex-wrap gap-1">
-              {(productDetails.categories ?? []).map((category: CategoryType, index, categories) => (
-                <span key={category.id}>
-                  <Link
-                    href={`/productos?category=${category.slug}`}
-                    className="text-orange-500 hover:underline"
-                  >
-                    {category.name}
-                  </Link>
-                  {index < categories.length - 1 && ", "}
-                </span>
-              ))}
+              {(productDetails.categories ?? []).map(
+                (
+                  category: CategoryType,
+                  index: number,
+                  categories: CategoryType[],
+                ) => (
+                  <span key={category.id}>
+                    <Link
+                      href={`/productos?category=${category.slug}`}
+                      className="text-orange-500 hover:underline"
+                    >
+                      {category.name}
+                    </Link>
+                    {index < categories.length - 1 && ", "}
+                  </span>
+                ),
+              )}
             </p>
           </div>
 
