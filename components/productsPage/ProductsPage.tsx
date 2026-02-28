@@ -77,7 +77,7 @@ const ProductsPage = async ({
   }
 
   return (
-    <div className="container mx-auto max-w-[1200px] px-4">
+    <div className="container mx-auto max-w-[1400px] px-4">
       <div className="space-y-6">
         <div className="space-y-4">
           <div className="flex flex-col gap-4 md:flex-row">

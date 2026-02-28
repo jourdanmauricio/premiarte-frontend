@@ -1,17 +1,31 @@
 import { ProductsCard } from "@/components/shared/ProductsCard";
 import SecondaryButton from "@/components/shared/SecondaryButton";
 import Subtitle from "@/components/shared/Subtitle";
-import { FeaturedProductsSettings, Product } from "@/app/shared/types";
+import { HomeSettings, Product } from "@/app/shared/types";
 
 type FeaturedProductsProps = {
-  featuredProducts: FeaturedProductsSettings;
-  products: Product[];
+  homeSettings: HomeSettings;
+  // products: Product[];
 };
 
-const FeaturedProducts = ({
-  featuredProducts,
-  products,
+const apiUrl = process.env.API_URL;
+
+const FeaturedProducts = async ({
+  homeSettings,
+  // products,
 }: FeaturedProductsProps) => {
+  /* Featured products settings */
+  const featuredProducts = homeSettings.featuredProducts;
+
+  const featuredProductsSettings = await fetch(
+    `${apiUrl}/products?isFeatured=true&isActive=true`,
+    {
+      next: { tags: ["featured-products"] },
+    },
+  );
+  const featuredProductsJson = await featuredProductsSettings.json();
+  const products: Product[] = featuredProductsJson.data;
+
   return (
     <>
       <section className="section-container">

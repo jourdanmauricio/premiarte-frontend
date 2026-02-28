@@ -1,3 +1,19 @@
+export type HomeSettings = {
+  featuredProducts: FeaturedProductsSettings;
+  featuredCategories: FeaturedCategoriesSettings;
+  // testimonials: TestimonialsSettings;
+  services: ServicesSettings;
+  slider: SliderSettings[];
+  hero: HeroSettings;
+};
+
+export type FeaturedCategoriesSettings = {
+  title: string;
+  text: string;
+  buttonText: string;
+  buttonLink: string;
+};
+
 export type Category = {
   id: number;
   name: string;

@@ -1,17 +1,29 @@
-import { FeaturedCategoriesData, FeaturedCategory } from "@/app/shared/types";
+import { FeaturedCategory, HomeSettings } from "@/app/shared/types";
 import { Link } from "next-view-transitions";
 import Subtitle from "../shared/Subtitle";
 import { CategoryCard } from "@/components/shared/CategoryCard";
 
 type FeaturedCategoriesProps = {
-  featuredCategories: FeaturedCategory[];
-  featuredCategoriesData: FeaturedCategoriesData;
+  homeSettings: HomeSettings;
 };
 
-const FeaturedCategories = ({
-  featuredCategories,
-  featuredCategoriesData,
+const apiUrl = process.env.API_URL;
+
+const FeaturedCategories = async ({
+  homeSettings,
 }: FeaturedCategoriesProps) => {
+  /* Featured categories settings */
+  const featuredCategoriesData = homeSettings.featuredCategories;
+
+  const featuredCategoriesJson = await fetch(
+    `${apiUrl}/categories?isFeatured=true`,
+    {
+      next: { tags: ["featured-categories"] },
+    },
+  );
+  const featuredCategories: FeaturedCategory[] =
+    await featuredCategoriesJson.json();
+
   return (
     <section className="section-container">
       <div className="flex flex-col items-center gap-12 lg:gap-16">

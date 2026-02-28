@@ -45,45 +45,6 @@ const HomePage = async () => {
     }),
   );
 
-  /* Hero settings */
-  const heroSettings = homeSettings.hero;
-
-  const heroImageLogoData = await fetch(
-    `${apiUrl}/images/${heroSettings.logoId}`,
-    {
-      next: { tags: ["home-hero"] },
-    },
-  );
-  const heroImageLogoDataJson = await heroImageLogoData.json();
-
-  const heroImageData = await fetch(
-    `${apiUrl}/images/${heroSettings.imageId}`,
-    {
-      next: { tags: ["home-hero"] },
-    },
-  );
-  const heroImageDataJson = await heroImageData.json();
-
-  heroSettings.logoDet = {
-    url: heroImageLogoDataJson.url,
-    alt: heroImageLogoDataJson.alt,
-  };
-  heroSettings.imageDet = {
-    url: heroImageDataJson.url,
-    alt: heroImageDataJson.alt,
-  };
-
-  /* Featured products settings */
-  const featuredProductsSettings = homeSettings.featuredProducts;
-
-  const featuredProducts = await fetch(
-    `${apiUrl}/products?isFeatured=true&isActive=true`,
-    {
-      next: { tags: ["featured-products"] },
-    },
-  );
-  const featuredProductsJson = await featuredProducts.json();
-
   /* Services settings */
   const servicesData = homeSettings.services;
 
@@ -103,38 +64,20 @@ const HomePage = async () => {
     }),
   );
 
-  /* Featured categories settings */
-  const featuredCategoriesData = homeSettings.featuredCategories;
-
-  const featuredCategoriesJson = await fetch(
-    `${apiUrl}/categories?isFeatured=true`,
-    {
-      next: { tags: ["featured-categories"] },
-    },
-  );
-  const featuredCategories = await featuredCategoriesJson.json();
-
   /* Testimonials settings */
   const testimonialsData = homeSettings.testimonials;
 
   return (
     <>
       <HomeCarousel sliderSettings={sliderWithImages} />
-      <div className="max-w-7xl mx-auto">
-        <Hero heroSettings={heroSettings} />
-        <FeaturedProducts
-          featuredProducts={featuredProductsSettings}
-          products={featuredProductsJson.data}
-        />
+      <section className="max-w-7xl mx-auto">
+        <Hero homeSettings={homeSettings} />
+        <FeaturedProducts homeSettings={homeSettings} />
         <Services services={servicesDataJson} servicesData={servicesData} />
-        <FeaturedCategories
-          featuredCategories={featuredCategories}
-          featuredCategoriesData={featuredCategoriesData}
-        />
+        <FeaturedCategories homeSettings={homeSettings} />
         <Testimonials testimonialsData={testimonialsData} />
-
         <NewsletterSection />
-      </div>
+      </section>
     </>
   );
 };
