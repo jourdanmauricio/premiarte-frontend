@@ -1,7 +1,7 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import NavBar from "../components/shared/navBar/NavBar";
+import NavBarWrapper from "../components/shared/navBar/NavBarWrapper";
 import { Footer } from "@/components/shared/Footer";
 import WhatsAppButton from "@/components/shared/whatsAppButton/WhatsAppButton";
 import { SessionProvider } from "@/components/providers/SessionProvider";
@@ -21,11 +21,11 @@ const siteDescription =
   "Premiarte, Trofeos, Venta y Fabricacion de Trofeos, Medallas, Reconocimientos, Placas Grabadas, Copas, Promocionales, Venta, Fabrica y Diseño de trofeos, La Plata";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.premiarte.com.ar"),
-  title: "Premiarte",
+  metadataBase: new URL("https://premiarte.com.ar"),
+  title: "PremiArte",
   description: siteDescription,
   keywords: [
-    "Premiarte",
+    "PremiArte",
     "Trofeos",
     "Venta y Fabricacion de Trofeos",
     "Medallas",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Fabrica y Diseño de trofeos",
     "La Plata",
   ],
-  authors: [{ name: "Premiarte" }],
+  authors: [{ name: "PremiArte" }],
   creator: "Premiarte",
   publisher: "Premiarte",
   robots: {
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Premiarte",
     description: siteDescription,
-    url: "https://www.premiarte.com.ar",
-    siteName: "www.premiarte.com.ar",
+    url: "https://premiarte.com.ar",
+    siteName: "premiarte.com.ar",
     type: "website",
     locale: "es_AR",
     alternateLocale: ["es_ES", "en_US"],
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     "content-language": "es",
     language: "es",
     distribution: "Global",
-    subject: "Premiarte.com.ar | Premiarte",
+    subject: "PremiArte.com.ar | PremiArte",
   },
 };
 
@@ -74,35 +74,35 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-    <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="fixed inset-0 -z-10">
-          {/* Gradiente base - este está bien */}
-          <div className="absolute inset-0 bg-linear-to-br from-black via-gray-950 to-black"></div>
+      <html lang="en" className="dark">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <div className="fixed inset-0 -z-10">
+            {/* Gradiente base - este está bien */}
+            <div className="absolute inset-0 bg-linear-to-br from-black via-gray-950 to-black"></div>
 
-          {/* Efectos optimizados usando CSS puro en lugar de blur-3xl */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `
+            {/* Efectos optimizados usando CSS puro en lugar de blur-3xl */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `
                 radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 75% 67%, rgba(249, 115, 22, 0.03) 0%, transparent 50%)
                 `,
-            }}
-          ></div>
-        </div>
-        <SessionProvider>
-          <NavBar />
-          <main className="m-auto">{children}</main>
-        </SessionProvider>
+              }}
+            ></div>
+          </div>
+          <SessionProvider>
+            <NavBarWrapper />
+            <main className="m-auto">{children}</main>
+          </SessionProvider>
 
-        <Footer />
+          <Footer />
 
-        <WhatsAppButton />
-      </body>
-    </html>
+          <WhatsAppButton />
+        </body>
+      </html>
     </ViewTransitions>
   );
 }

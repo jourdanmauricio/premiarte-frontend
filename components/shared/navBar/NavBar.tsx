@@ -22,10 +22,27 @@ function getActivePath(currentPath: string): string {
   return currentPath;
 }
 
-const NavBar = () => {
+const DEFAULT_LOGO =
+  "https://res.cloudinary.com/dn7npxeof/image/upload/v1758745993/premiarte/zwk5kvupzxwgna5s8uxx.png";
+
+type NavBarProps = {
+  siteName?: string;
+  logoUrl?: string;
+  logoAlt?: string;
+};
+
+const NavBar = ({
+  siteName = "PremiArte",
+  logoUrl = DEFAULT_LOGO,
+  logoAlt = "Logo PremiArte",
+}: NavBarProps) => {
   const pathname = usePathname();
   const activePath = getActivePath(pathname);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  console.log("logoUrl", logoUrl);
+  console.log("logoAlt", logoAlt);
+  console.log("siteName", siteName);
 
   return (
     <>
@@ -38,16 +55,14 @@ const NavBar = () => {
           <div className="text-gray-300">
             <div className="flex items-center justify-center">
               <Image
-                src={
-                  "https://res.cloudinary.com/dn7npxeof/image/upload/v1758745993/premiarte/zwk5kvupzxwgna5s8uxx.png"
-                }
-                alt={"Logo Premiarte"}
+                src={logoUrl}
+                alt={logoAlt}
                 className="w-10 h-10"
                 width={40}
                 height={40}
               />
               <Link href="/" className="text-2xl font-bold">
-                Premiarte
+                {siteName}
               </Link>
             </div>
           </div>
@@ -91,9 +106,7 @@ const NavBar = () => {
       {/* Menú móvil overlay - fuera del nav para evitar problemas de stacking context */}
       <div
         className={`xl:hidden fixed inset-0 top-16 z-60 transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen
-            ? "opacity-100 visible"
-            : "opacity-0 invisible"
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
         <div
