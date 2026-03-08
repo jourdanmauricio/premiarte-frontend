@@ -69,6 +69,21 @@ const ProductPage = async ({ slug }: { slug: string }) => {
               slug: productDetails.slug,
               image: productDetails.images?.[0]?.url ?? "",
             }}
+            variants={
+              Array.isArray(productDetails.variants)
+                ? productDetails.variants.map(
+                    (v: {
+                      id: string;
+                      attributes: string[];
+                      values: string[];
+                    }) => ({
+                      id: v.id,
+                      attributes: v.attributes ?? [],
+                      values: v.values ?? [],
+                    }),
+                  )
+                : undefined
+            }
           />
         </section>
       </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CartForm } from "@/components/cartPage/CartForm";
 import { Card } from "@/components/ui/card";
 import { useCartStore } from "@/store/useCartStore";
-import { Product } from "@/app/shared/types";
+import type { BudgetProduct } from "@/validations/budget";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -18,23 +18,34 @@ const CartPage = () => {
   const { data: session } = useSession();
   const user = session?.user;
 
-  const handleDecrement = (productId: string, currentQty: number) => {
+  const budgetProducts: BudgetProduct[] = products.map((item) => ({
+    id: Number(item.productId),
+    variantId: item.variantId ?? null,
+    name: item.name,
+    slug: item.slug,
+    image: item.image,
+    quantity: item.quantity,
+    attributes: item.attributes ?? null,
+    values: item.values ?? null,
+  }));
+
+  const handleDecrement = (lineId: string, currentQty: number) => {
     if (currentQty <= 1) return;
-    updateQuantity(productId, currentQty - 1);
+    updateQuantity(lineId, currentQty - 1);
   };
 
-  const handleIncrement = (productId: string, currentQty: number) => {
-    updateQuantity(productId, currentQty + 1);
+  const handleIncrement = (lineId: string, currentQty: number) => {
+    updateQuantity(lineId, currentQty + 1);
   };
 
-  const handleQuantityChange = (productId: string, value: string) => {
+  const handleQuantityChange = (lineId: string, value: string) => {
     const num = parseInt(value, 10);
     if (Number.isNaN(num) || num < 1) return;
-    updateQuantity(productId, num);
+    updateQuantity(lineId, num);
   };
 
-  const handleRemove = (productId: string) => {
-    removeItem(productId);
+  const handleRemove = (lineId: string) => {
+    removeItem(lineId);
   };
 
   return (
@@ -92,6 +103,11 @@ const CartPage = () => {
                     className="hover: underline"
                   >
                     {product.name}
+                    {product.attributes?.length && product.values?.length
+                      ? ` - ${product.attributes
+                          .map((attr, i) => `${attr}: ${product.values?.[i] ?? ""}`)
+                          .join(", ")}`
+                      : ""}
                   </Link>
                   <div className="flex gap-2 items-center justify-between w-full">
                     <h3 className="">Cantidad</h3>
@@ -169,7 +185,7 @@ const CartPage = () => {
 
           <CartForm
             user={user as User}
-            products={products as unknown as Product[]}
+            products={budgetProducts}
             onSuccess={() => setShowSuccess(true)}
           />
         </Card>

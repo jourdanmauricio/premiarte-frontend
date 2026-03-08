@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@/app/shared/types";
+import type { BudgetProduct } from "@/validations/budget";
 import { BudgetFormState } from "@/validations/budget";
 import { User } from "next-auth";
 import { useState, useCallback } from "react";
@@ -10,7 +10,7 @@ import { SubmitButton } from "@/components/shared/SubmitButton";
 
 type CartFormProps = {
   user: User;
-  products: Product[];
+  products: BudgetProduct[];
   onSuccess?: () => void;
 };
 
@@ -43,8 +43,17 @@ const CartForm = ({ user, products, onSuccess }: CartFormProps) => {
       setFormstate((prev) => ({ ...prev, formError: null, zodErrors: null }));
       const form = e.currentTarget;
       const formData = new FormData(form);
+
+      const formDataEntries = Object.fromEntries(formData.entries());
+      formDataEntries.products = JSON.parse(formDataEntries.products as string);
+
+      console.log("formDataEntries", formDataEntries);
+
       try {
-        const res = await fetch("/api/budget", { method: "POST", body: formData });
+        const res = await fetch("/api/budget", {
+          method: "POST",
+          body: formData,
+        });
         const data: BudgetFormState = await res.json();
         setFormstate(data);
         if (data.success) {

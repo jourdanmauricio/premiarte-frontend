@@ -1,5 +1,15 @@
-import { Product } from "@/app/shared/types";
 import { z } from "zod";
+
+const budgetProductSchema = z.object({
+  id: z.coerce.number(),
+  variantId: z.string().nullable().optional(),
+  slug: z.string(),
+  name: z.string(),
+  quantity: z.coerce.number(),
+  image: z.string().optional().default(""),
+  attributes: z.array(z.string()).nullable().optional(),
+  values: z.array(z.string()).nullable().optional(),
+});
 
 export const budgetFormSchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
@@ -12,18 +22,11 @@ export const budgetFormSchema = z.object({
     ),
   phone: z.string().min(1, "El teléfono es requerido"),
   message: z.string().optional().default(""),
-  products: z.array(
-    z.object({
-      id: z.coerce.number(),
-      slug: z.string(),
-      name: z.string(),
-      quantity: z.coerce.number(),
-      image: z.string().optional().default(""),
-    }),
-  ),
+  products: z.array(budgetProductSchema),
 });
 
 export type BudgetFormSchema = z.infer<typeof budgetFormSchema>;
+export type BudgetProduct = z.infer<typeof budgetProductSchema>;
 
 export type BudgetFormState = {
   success?: boolean;
@@ -33,7 +36,7 @@ export type BudgetFormState = {
     email: string;
     phone: string;
     message: string;
-    products: Product[];
+    products: BudgetProduct[];
   };
   zodErrors?: {
     identifier?: string[];

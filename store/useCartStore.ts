@@ -1,21 +1,45 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface CartItem {
+export interface CartItem {
+  /** Identificador único de la línea: variantId si hay variante, sino productId */
   id: string;
+  productId: string;
+  variantId: string | null;
   name: string;
   slug: string;
   image: string;
   quantity: number;
+  attributes: string[] | null;
+  values: string[] | null;
 }
+
+export type AddToCartItem = Omit<CartItem, "quantity">;
 
 interface CartStore {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
+  addItem: (item: AddToCartItem, quantity?: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   getTotalItems: () => number;
+}
+
+function normalizeCartItem(raw: Partial<CartItem> & { quantity: number }): CartItem {
+  const productId = raw.productId ?? raw.id;
+  const variantId = raw.variantId ?? null;
+  const id = variantId ?? productId;
+  return {
+    id,
+    productId: String(productId),
+    variantId,
+    name: raw.name ?? "",
+    slug: raw.slug ?? "",
+    image: raw.image ?? "",
+    quantity: raw.quantity,
+    attributes: raw.attributes ?? null,
+    values: raw.values ?? null,
+  };
 }
 
 export const useCartStore = create<CartStore>()(
@@ -24,17 +48,25 @@ export const useCartStore = create<CartStore>()(
       items: [],
       addItem: (item, quantity = 1) =>
         set((state) => {
-          const existing = state.items.find((i) => i.id === item.id);
+          const productId = String(item.productId);
+          const variantId = item.variantId ?? null;
+          const lineId = variantId ?? productId;
+          const existing = state.items.find((i) => i.id === lineId);
+          const newItem = normalizeCartItem({
+            ...item,
+            productId,
+            variantId,
+            id: lineId,
+            quantity: existing ? existing.quantity + quantity : quantity,
+          });
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.id === item.id
-                  ? { ...i, quantity: i.quantity + quantity }
-                  : i,
+                i.id === lineId ? newItem : i,
               ),
             };
           }
-          return { items: [...state.items, { ...item, quantity }] };
+          return { items: [...state.items, newItem] };
         }),
       removeItem: (id) =>
         set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
@@ -45,6 +77,15 @@ export const useCartStore = create<CartStore>()(
       clearCart: () => set({ items: [] }),
       getTotalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
     }),
-    { name: "cart-storage" }, // clave en localStorage
+    {
+      name: "cart-storage",
+      partialize: (state) => ({ items: state.items }),
+      merge: (persisted, current) => ({
+        ...current,
+        items: ((persisted as { items?: (Partial<CartItem> & { quantity: number })[] })?.items ?? current.items).map(
+          (item) => normalizeCartItem(item),
+        ),
+      }),
+    },
   ),
 );
