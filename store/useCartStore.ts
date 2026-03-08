@@ -26,9 +26,9 @@ interface CartStore {
 }
 
 function normalizeCartItem(raw: Partial<CartItem> & { quantity: number }): CartItem {
-  const productId = raw.productId ?? raw.id;
+  const productId = raw.productId ?? raw.id ?? "";
   const variantId = raw.variantId ?? null;
-  const id = variantId ?? productId;
+  const id = variantId ?? String(productId);
   return {
     id,
     productId: String(productId),
