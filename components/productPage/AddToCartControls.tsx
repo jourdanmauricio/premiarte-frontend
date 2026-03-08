@@ -146,10 +146,12 @@ const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) =
   };
 
   const handleAddToCart = () => {
+    const variantId = selectedVariant?.id ?? null;
     addItem(
       {
+        id: variantId ?? product.id,
         productId: product.id,
-        variantId: selectedVariant?.id ?? null,
+        variantId,
         name: product.name,
         slug: product.slug,
         image: product.image,
