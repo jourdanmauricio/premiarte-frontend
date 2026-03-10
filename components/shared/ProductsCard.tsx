@@ -20,7 +20,9 @@ const ProductsCard = ({ product }: { product: Product }) => {
       </div>
 
       <div className="mt-4 space-y-1 text-center px-2 mb-4">
-        <div className="pill mx-auto">{product.categories[0].name}</div>
+        {product.categories?.[0] && (
+          <div className="pill mx-auto">{product.categories[0].name}</div>
+        )}
         <h3
           className="font-medium"
           style={{ viewTransitionName: `product-title-${product.slug}` }}

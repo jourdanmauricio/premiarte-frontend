@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Category as CategoryType } from "@/app/shared/types";
+import { Category as CategoryType, Product } from "@/app/shared/types";
 import { ProductImageGallery } from "@/components/productPage/ProductImageGallery";
 import { AddToCartControls } from "@/components/productPage/AddToCartControls";
+import { ProductsCard } from "@/components/shared/ProductsCard";
+import Subtitle from "@/components/shared/Subtitle";
 
 const apiUrl = process.env.API_URL;
 
@@ -19,7 +21,28 @@ const ProductPage = async ({ slug }: { slug: string }) => {
 
   const productDetails = await product.json();
 
-  console.log("productDetails", productDetails);
+  // El backend devuelve relacionados en relatedFrom[].relatedProduct (imágenes anidadas en .image)
+  const relatedFrom = Array.isArray(productDetails.relatedFrom)
+    ? productDetails.relatedFrom
+    : [];
+  const relatedProducts: Product[] = relatedFrom
+    .map((item: { relatedProduct?: Record<string, unknown> }) => {
+      const p = item.relatedProduct;
+      if (!p || typeof p !== "object") return null;
+      const images = (Array.isArray(p.images) ? p.images : [])
+        .map((im: { image?: { id: number; url: string; alt: string } }) =>
+          im?.image
+            ? { id: im.image.id, url: im.image.url, alt: im.image.alt }
+            : null,
+        )
+        .filter(Boolean) as { id: number; url: string; alt: string }[];
+      return {
+        ...p,
+        images,
+        categories: Array.isArray(p.categories) ? p.categories : [],
+      } as Product;
+    })
+    .filter(Boolean) as Product[];
 
   return (
     <div className="mx-auto max-w-[1200px] my-20">
@@ -90,6 +113,27 @@ const ProductPage = async ({ slug }: { slug: string }) => {
           />
         </section>
       </div>
+
+      {relatedProducts.length > 0 && (
+        <section className="mt-24 w-full px-4">
+          <div className="flex flex-col items-center gap-12">
+            <Subtitle
+              className="text-base md:text-3xl"
+              subtitle="También te puede interesar"
+            />
+            <div className="flex flex-wrap justify-center gap-8 pt-8">
+              {relatedProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="img-appear group border border-orange-50/10 rounded-sm relative w-64 shadow-xl transition-all duration-300 hover:drop-shadow-3xl hover:shadow-orange-200/10"
+                >
+                  <ProductsCard product={product} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
