@@ -99,17 +99,27 @@ const CartPage = () => {
                   height={112}
                 />
                 <div className="flex flex-col gap-2 justify-between items-start w-full text-white">
-                  <Link
-                    href={`/productos/${product.slug}`}
-                    className="hover: underline"
-                  >
-                    {product.name}
+                  <div className="flex flex-col gap-0.5">
+                    <Link
+                      href={`/productos/${product.slug}`}
+                      className="hover: underline"
+                    >
+                      {product.name}
+                    </Link>
                     {product.attributes?.length && product.values?.length
-                      ? ` - ${product.attributes
-                          .map((attr, i) => `${attr}: ${product.values?.[i] ?? ""}`)
+                      ? `${product.attributes
+                          .map(
+                            (attr, i) =>
+                              `${attr}: ${product.values?.[i] ?? ""}`,
+                          )
                           .join(", ")}`
                       : ""}
-                  </Link>
+                    {product.customText && (
+                      <span className="text-sm text-gray-300">
+                        Texto personalizado: {product.customText}
+                      </span>
+                    )}
+                  </div>
                   <div className="flex gap-2 items-center justify-between w-full">
                     <h3 className="">Cantidad</h3>
                     <div className="flex items-center gap-4">
