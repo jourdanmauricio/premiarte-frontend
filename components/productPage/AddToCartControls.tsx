@@ -21,37 +21,6 @@ type AddToCartControlsProps = {
   isCustomizable?: boolean;
 };
 
-/**
- * Variantes que coinciden con la selección actual en todos los atributos excepto attrIndex.
- * (Si selectedValues[j] está vacío, no filtra por ese atributo.)
- */
-function getMatchingVariants(
-  variants: ProductVariant[],
-  selectedValues: string[],
-  attrIndex: number,
-): ProductVariant[] {
-  return variants.filter((v) =>
-    v.values.every(
-      (val, j) =>
-        j === attrIndex ||
-        selectedValues[j] === "" ||
-        selectedValues[j] === val,
-    ),
-  );
-}
-
-/** Valores disponibles para el atributo attrIndex según la selección en el resto. */
-function getAvailableOptionsForAttribute(
-  variants: ProductVariant[],
-  selectedValues: string[],
-  attrIndex: number,
-): string[] {
-  if (variants.length === 0) return [];
-  const matching = getMatchingVariants(variants, selectedValues, attrIndex);
-  const set = new Set(matching.map((v) => v.values[attrIndex]));
-  return Array.from(set);
-}
-
 /** Todos los valores únicos por atributo (orden estable para no mover opciones). */
 function getAllValuesByAttribute(variants: ProductVariant[]): string[][] {
   if (variants.length === 0) return [];
@@ -100,20 +69,25 @@ const AddToCartControls = ({
     [variants],
   );
 
-  /** Conjunto de valores disponibles por atributo (para inhabilitar los que no). */
+  /**
+   * Nivel 1 (attrIndex 0): siempre todas las opciones disponibles.
+   * Nivel 2+ (attrIndex > 0): solo las opciones compatibles con la selección de Nivel 1.
+   *   Si Nivel 1 no está seleccionado, todas disponibles.
+   */
   const availableSetByAttribute = useMemo(
     () =>
-      attributeNames.map(
-        (_, attrIndex) =>
-          new Set(
-            getAvailableOptionsForAttribute(
-              variants,
-              selectedValues,
-              attrIndex,
-            ),
-          ),
-      ),
-    [variants, selectedValues, attributeNames],
+      attributeNames.map((_, attrIndex) => {
+        if (attrIndex === 0) {
+          return new Set(allOptionsByAttribute[0]);
+        }
+        const level1Value = selectedValues[0];
+        if (level1Value === "") {
+          return new Set(allOptionsByAttribute[attrIndex]);
+        }
+        const matching = variants.filter((v) => v.values[0] === level1Value);
+        return new Set(matching.map((v) => v.values[attrIndex]));
+      }),
+    [variants, selectedValues, attributeNames, allOptionsByAttribute],
   );
 
   const allAttributesSelected =
@@ -181,11 +155,9 @@ const AddToCartControls = ({
     setSelectedValues((prev) => {
       const next = [...prev];
       next[attrIndex] = value;
-      // Si al cambiar este atributo algún otro valor seleccionado ya no está disponible, limpiarlo.
-      for (let j = 0; j < next.length; j++) {
-        if (j === attrIndex) continue;
-        const available = getAvailableOptionsForAttribute(variants, next, j);
-        if (next[j] !== "" && !available.includes(next[j])) {
+      // Al cambiar Nivel 1, limpiar siempre todos los atributos de Nivel 2+.
+      if (attrIndex === 0) {
+        for (let j = 1; j < next.length; j++) {
           next[j] = "";
         }
       }
