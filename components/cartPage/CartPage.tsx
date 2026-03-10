@@ -27,6 +27,7 @@ const CartPage = () => {
     quantity: item.quantity,
     attributes: item.attributes ?? null,
     values: item.values ?? null,
+    customText: item.customText ?? "",
   }));
 
   const handleDecrement = (lineId: string, currentQty: number) => {

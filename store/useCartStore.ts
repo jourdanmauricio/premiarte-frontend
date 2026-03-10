@@ -12,6 +12,7 @@ export interface CartItem {
   quantity: number;
   attributes: string[] | null;
   values: string[] | null;
+  customText: string | null;
 }
 
 export type AddToCartItem = Omit<CartItem, "quantity">;
@@ -39,6 +40,7 @@ function normalizeCartItem(raw: Partial<CartItem> & { quantity: number }): CartI
     quantity: raw.quantity,
     attributes: raw.attributes ?? null,
     values: raw.values ?? null,
+    customText: raw.customText ?? null,
   };
 }
 

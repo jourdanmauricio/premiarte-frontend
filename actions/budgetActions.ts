@@ -46,11 +46,11 @@ export const budgetAction = async (
       },
     });
 
-    console.log("response", response);
-
-    await response.json();
+    const responseData = await response.json().catch(() => ({}));
 
     if (!response.ok) {
+      console.error("Backend budgets error:", response.status, responseData);
+      console.error("Request body sent:", JSON.stringify(body, null, 2));
       return {
         success: false,
         message: "Error al solicitar presupuesto",

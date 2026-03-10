@@ -18,6 +18,7 @@ type AddToCartControlsProps = {
     image: string;
   };
   variants?: ProductVariant[];
+  isCustomizable?: boolean;
 };
 
 /**
@@ -31,7 +32,10 @@ function getMatchingVariants(
 ): ProductVariant[] {
   return variants.filter((v) =>
     v.values.every(
-      (val, j) => j === attrIndex || selectedValues[j] === "" || selectedValues[j] === val,
+      (val, j) =>
+        j === attrIndex ||
+        selectedValues[j] === "" ||
+        selectedValues[j] === val,
     ),
   );
 }
@@ -71,8 +75,13 @@ function findVariantByValues(
   );
 }
 
-const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) => {
+const AddToCartControls = ({
+  product,
+  variants = [],
+  isCustomizable = false,
+}: AddToCartControlsProps) => {
   const [localQuantity, setLocalQuantity] = useState(1);
+  const [customText, setCustomText] = useState("");
   const { items, addItem, updateQuantity, removeItem } = useCartStore();
 
   const hasVariants = variants.length > 0;
@@ -94,8 +103,15 @@ const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) =
   /** Conjunto de valores disponibles por atributo (para inhabilitar los que no). */
   const availableSetByAttribute = useMemo(
     () =>
-      attributeNames.map((_, attrIndex) =>
-        new Set(getAvailableOptionsForAttribute(variants, selectedValues, attrIndex)),
+      attributeNames.map(
+        (_, attrIndex) =>
+          new Set(
+            getAvailableOptionsForAttribute(
+              variants,
+              selectedValues,
+              attrIndex,
+            ),
+          ),
       ),
     [variants, selectedValues, attributeNames],
   );
@@ -113,12 +129,8 @@ const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) =
     [hasVariants, allAttributesSelected, variants, selectedValues],
   );
 
-  const lineId = hasVariants
-    ? selectedVariant?.id ?? null
-    : product.id;
-  const cartItem = lineId
-    ? items.find((item) => item.id === lineId)
-    : null;
+  const lineId = hasVariants ? (selectedVariant?.id ?? null) : product.id;
+  const cartItem = lineId ? items.find((item) => item.id === lineId) : null;
   const isInCart = !!cartItem;
 
   const displayQuantity = isInCart ? cartItem.quantity : localQuantity;
@@ -157,10 +169,12 @@ const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) =
         image: product.image,
         attributes: selectedVariant?.attributes ?? null,
         values: selectedVariant?.values ?? null,
+        customText: customText.trim() ? customText.trim() : null,
       },
       localQuantity,
     );
     setLocalQuantity(1);
+    setCustomText("");
   };
 
   const setAttributeValue = (attrIndex: number, value: string) => {
@@ -189,14 +203,17 @@ const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) =
               <span className="text-sm text-muted-foreground">{attrName}</span>
               <div className="flex flex-wrap gap-2">
                 {allOptionsByAttribute[attrIndex]?.map((value) => {
-                  const isAvailable = availableSetByAttribute[attrIndex]?.has(value);
+                  const isAvailable =
+                    availableSetByAttribute[attrIndex]?.has(value);
                   const isSelected = selectedValues[attrIndex] === value;
                   return (
                     <button
                       key={value}
                       type="button"
                       disabled={!isAvailable}
-                      onClick={() => isAvailable && setAttributeValue(attrIndex, value)}
+                      onClick={() =>
+                        isAvailable && setAttributeValue(attrIndex, value)
+                      }
                       className={`rounded border px-3 py-1.5 text-sm transition-colors ${
                         !isAvailable
                           ? "cursor-not-allowed border-dotted border-gray-500 bg-transparent opacity-60"
@@ -212,6 +229,27 @@ const AddToCartControls = ({ product, variants = [] }: AddToCartControlsProps) =
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {isCustomizable && (
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="custom-text"
+            className="font-semibold text-sm text-muted-foreground"
+          >
+            Texto personalizado{" "}
+            <span className="font-normal text-xs">(opcional)</span>
+          </label>
+          <textarea
+            id="custom-text"
+            value={customText}
+            onChange={(e) => setCustomText(e.target.value)}
+            className="w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm bg-transparent text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-slate-400 transition-colors resize-none"
+            rows={2}
+            placeholder="Escribí aquí el texto que querés personalizar en tu producto"
+            maxLength={250}
+          />
         </div>
       )}
 

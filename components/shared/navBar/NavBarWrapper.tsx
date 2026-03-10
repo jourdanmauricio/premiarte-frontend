@@ -40,7 +40,6 @@ async function getSiteBranding() {
 export default async function NavBarWrapper() {
   const branding = await getSiteBranding();
 
-  console.log("branding", branding);
   return (
     <NavBar
       siteName={branding.siteName}

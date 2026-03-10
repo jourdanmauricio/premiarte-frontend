@@ -19,6 +19,8 @@ const ProductPage = async ({ slug }: { slug: string }) => {
 
   const productDetails = await product.json();
 
+  console.log("productDetails", productDetails);
+
   return (
     <div className="mx-auto max-w-[1200px] my-20">
       <div className="flex flex-col lg:flex-row gap-12 w-full">
@@ -69,6 +71,7 @@ const ProductPage = async ({ slug }: { slug: string }) => {
               slug: productDetails.slug,
               image: productDetails.images?.[0]?.url ?? "",
             }}
+            isCustomizable={Boolean(productDetails.isCustomizable)}
             variants={
               Array.isArray(productDetails.variants)
                 ? productDetails.variants.map(

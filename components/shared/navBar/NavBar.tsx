@@ -40,10 +40,6 @@ const NavBar = ({
   const activePath = getActivePath(pathname);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  console.log("logoUrl", logoUrl);
-  console.log("logoAlt", logoAlt);
-  console.log("siteName", siteName);
-
   return (
     <>
       <nav

@@ -47,8 +47,6 @@ export const contactAction = async (
       },
     });
 
-    console.log("response", response);
-
     await response.json();
 
     if (!response.ok) {

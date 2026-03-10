@@ -75,6 +75,7 @@ export type Product = {
   stock: number;
   isActive: boolean;
   isFeatured: boolean;
+  isCustomizable: boolean;
   retailPrice: number;
   wholesalePrice: number;
   slug: string;

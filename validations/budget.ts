@@ -9,6 +9,7 @@ const budgetProductSchema = z.object({
   image: z.string().optional().default(""),
   attributes: z.array(z.string()).nullable().optional(),
   values: z.array(z.string()).nullable().optional(),
+  customText: z.string().optional().default(""),
 });
 
 export const budgetFormSchema = z.object({

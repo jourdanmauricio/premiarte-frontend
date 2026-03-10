@@ -47,8 +47,6 @@ const CartForm = ({ user, products, onSuccess }: CartFormProps) => {
       const formDataEntries = Object.fromEntries(formData.entries());
       formDataEntries.products = JSON.parse(formDataEntries.products as string);
 
-      console.log("formDataEntries", formDataEntries);
-
       try {
         const res = await fetch("/api/budget", {
           method: "POST",
