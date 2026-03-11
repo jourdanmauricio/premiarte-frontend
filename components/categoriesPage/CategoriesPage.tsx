@@ -3,15 +3,15 @@ import { Category } from "@/app/shared/types";
 
 const apiUrl = process.env.API_URL;
 
-/* Categories data */
-const data = await fetch(`${apiUrl}/categories`, {
-  next: {
-    tags: ["categories"],
-  },
-});
-const categories = await data.json();
+const CategoriesPage = async () => {
+  /* Categories data */
+  const data = await fetch(`${apiUrl}/categories`, {
+    next: {
+      tags: ["categories"],
+    },
+  });
+  const categories = await data.json();
 
-const CategoriesPage = () => {
   return (
     <div className="container mx-auto max-w-[1200px]">
       {/* <!-- <h2 class='text-lg font-medium'></h2>Categorías --> */}
