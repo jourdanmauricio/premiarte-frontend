@@ -1,25 +1,38 @@
+"use client";
+
+import { usePathname, useSearchParams } from "next/navigation";
+
 const ITEMS_PER_PAGE = 9;
 
-const CustomPagination = ({
-  currentPage,
-  total,
-  categorySlug,
-}: {
-  currentPage: number;
-  total: number;
-  categorySlug: string;
-}) => {
+const CustomPagination = ({ total }: { total: number }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const currentPage = searchParams.get("page")
+    ? Number(searchParams.get("page"))
+    : 1;
+
+  const categorySlug = searchParams.get("category") || "";
+  const query = searchParams.get("query") || "";
+
   const safeCurrentPage = currentPage > 1 ? currentPage : 1;
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-  const getPageUrl = (page: number) =>
-    `/productos?category=${categorySlug}&page=${page}`;
+
+  const createPageUrl = (page: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", page.toString());
+    params.set("category", categorySlug);
+    params.set("query", query);
+    params.set("isActive", "true");
+    return `${pathname}?${params.toString()}`;
+  };
 
   return (
     <div className="flex justify-between items-center my-20 mx-auto max-w-[300px]">
       {/* deshabilitar el botón si es la primera página */}
       {safeCurrentPage > 1 ? (
         <a
-          href={getPageUrl(Math.max(safeCurrentPage - 1, 1))}
+          href={createPageUrl(Math.max(safeCurrentPage - 1, 1))}
           className="p-2 bg-orange-500 text-white rounded transition-colors hover:bg-orange-500/90"
         >
           Anterior
@@ -34,7 +47,7 @@ const CustomPagination = ({
       </span>
       {safeCurrentPage < totalPages ? (
         <a
-          href={getPageUrl(Math.min(safeCurrentPage + 1, totalPages))}
+          href={createPageUrl(Math.min(safeCurrentPage + 1, totalPages))}
           className="p-2 bg-orange-500 text-white rounded hover:bg-orange-500/90 transition-colors"
         >
           Siguiente
