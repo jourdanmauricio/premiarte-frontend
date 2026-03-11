@@ -1,9 +1,9 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Link } from "next-view-transitions";
 import { Category } from "@/app/shared/types";
-import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
 const linkBase =
@@ -16,10 +16,23 @@ const ProductsSidebar = ({ categories }: { categories: Category[] }) => {
   const categorySlug = searchParams.get("category");
   const [isOpen, setIsOpen] = useState(false);
 
+  const query = searchParams.get("query");
+  const pathname = usePathname();
+
   const activeCategoryName = categorySlug
     ? (categories.find((c) => c.slug === categorySlug)?.name ??
       "Todos los productos")
     : "Todos los productos";
+
+  const createCategoryUrl = (categorySlug: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("category", categorySlug);
+    if (query) {
+      params.set("query", query);
+    }
+    params.set("page", "1");
+    return `${pathname}?${params.toString()}`;
+  };
 
   const categoryLinks = (onNavigate?: () => void) => (
     <>
@@ -35,7 +48,7 @@ const ProductsSidebar = ({ categories }: { categories: Category[] }) => {
         return (
           <Link
             key={category.id}
-            href={`/productos?category=${category.slug}&page=1`}
+            href={createCategoryUrl(category.slug)}
             onClick={onNavigate}
             className={`${linkBase} ${isActive ? linkActive : linkInactive}`}
           >

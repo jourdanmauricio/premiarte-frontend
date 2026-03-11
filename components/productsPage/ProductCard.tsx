@@ -14,7 +14,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     >
       <div className="relative w-72 px-0 h-full border border-orange-50/10">
         <Image
-          src={product.images[0]?.url || "/images/no-image.png"}
+          src={product.images[0]?.url || "/no-image.png"}
           alt={product.images[0]?.alt || "Product image"}
           className="object-contain object-center h-72 w-72"
           width={288}

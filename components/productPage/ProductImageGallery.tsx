@@ -3,11 +3,7 @@
 import { Image as ImageType } from "@/app/shared/types";
 import Image from "next/image";
 import { useState, useCallback, useEffect } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
   Carousel,
   CarouselContent,
@@ -24,7 +20,9 @@ type ProductImageGalleryProps = {
 
 const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(
+    null,
+  );
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
 
@@ -53,7 +51,13 @@ const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
   if (!images?.length) {
     return (
       <div className="w-[400px] h-[400px] mx-auto bg-gray-100 flex items-center justify-center rounded">
-        Sin imagen
+        <Image
+          src="/no-image.png"
+          alt="Sin imagen"
+          width={400}
+          height={400}
+          className="object-contain object-center w-[400px] h-[400px]"
+        />
       </div>
     );
   }
@@ -80,15 +84,19 @@ const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
         >
           <Image
             id="main-image"
-            src={selectedImage.url || "/placeholder.svg"}
+            src={selectedImage.url || "/no-image.png"}
             alt={selectedImage.alt || "Product image"}
             width={400}
             height={400}
             className="object-contain object-center w-[400px] h-[400px] transition-transform duration-200 ease-out"
             style={{
-              transformOrigin: mousePos ? `${mousePos.x}% ${mousePos.y}%` : "center center",
+              transformOrigin: mousePos
+                ? `${mousePos.x}% ${mousePos.y}%`
+                : "center center",
               transform: mousePos ? "scale(1.5)" : "scale(1)",
-              ...(selectedIndex === 0 ? { viewTransitionName: `product-image-${slug}` } : {}),
+              ...(selectedIndex === 0
+                ? { viewTransitionName: `product-image-${slug}` }
+                : {}),
             }}
           />
         </div>
@@ -110,10 +118,13 @@ const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
           >
             <CarouselContent className="flex items-center ml-0">
               {images.map((image: ImageType, index: number) => (
-                <CarouselItem key={image.id ?? index} className="flex items-center justify-center pl-0">
+                <CarouselItem
+                  key={image.id ?? index}
+                  className="flex items-center justify-center pl-0"
+                >
                   <div className="relative w-full min-h-0 flex items-center justify-center">
                     <Image
-                      src={image?.url || "/placeholder.svg"}
+                      src={image?.url || "/no-image.png"}
                       alt={image?.alt ?? "Product image"}
                       width={1400}
                       height={1400}
@@ -142,7 +153,7 @@ const ProductImageGallery = ({ images, slug }: ProductImageGalleryProps) => {
             }`}
           >
             <Image
-              src={image?.url || "/placeholder.svg"}
+              src={image?.url || "/no-image.png"}
               alt={image?.alt || "Product image"}
               width={90}
               height={90}

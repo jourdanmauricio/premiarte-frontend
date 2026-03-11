@@ -54,7 +54,8 @@ const ProductPage = async ({ slug }: { slug: string }) => {
             className="text-2xl font-semibold text-orange-500"
             style={{ viewTransitionName: `product-title-${slug}` }}
           >
-            {productDetails.name} - {productDetails.sku}
+            {productDetails.name}
+            {/* - {productDetails.sku} */}
           </h2>
 
           <div className="flex flex-col gap-2">

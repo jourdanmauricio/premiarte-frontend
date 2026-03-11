@@ -12,8 +12,8 @@ const CustomPagination = ({ total }: { total: number }) => {
     ? Number(searchParams.get("page"))
     : 1;
 
-  const categorySlug = searchParams.get("category") || "";
-  const query = searchParams.get("query") || "";
+  const categorySlug = searchParams.get("category");
+  const query = searchParams.get("query");
 
   const safeCurrentPage = currentPage > 1 ? currentPage : 1;
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
@@ -21,9 +21,12 @@ const CustomPagination = ({ total }: { total: number }) => {
   const createPageUrl = (page: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
-    params.set("category", categorySlug);
-    params.set("query", query);
-    params.set("isActive", "true");
+    if (categorySlug) {
+      params.set("category", categorySlug);
+    }
+    if (query) {
+      params.set("query", query || "");
+    }
     return `${pathname}?${params.toString()}`;
   };
 

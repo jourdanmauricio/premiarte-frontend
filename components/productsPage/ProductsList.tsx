@@ -21,7 +21,7 @@ const ProductsList = async ({
   query,
 }: ProductsListProps) => {
   const productsData = await fetch(
-    `${apiUrl}/products?category=${currentCategory}&query=${query}&page=${currentPage}&isActive=true`,
+    `${apiUrl}/products?category=${currentCategory}&query=${query}&page=${currentPage}`,
     {
       next: {
         tags: ["products"],
